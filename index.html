@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT Tester Zuweisung</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #ffffff;
+            --bg: #fafafa;
+            --border: #e5e5e5;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --accent: #0066ff;
+            --accent-hover: #0052cc;
+            --success: #00c853;
+            --error: #ff3d00;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--white);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Screens */
+        .screen {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* Home Screen */
+        .home-screen {
+            flex-direction: row;
+        }
+
+        .home-half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .home-half:hover {
+            background: var(--bg);
+        }
+
+        .home-half:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .home-content {
+            text-align: center;
+            max-width: 280px;
+        }
+
+        .home-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+            transition: all 0.2s ease;
+        }
+
+        .home-half:hover .home-icon {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .home-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .home-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Work Screen */
+        .work-screen {
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .work-container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+
+        .back-button:hover {
+            color: var(--text);
+        }
+
+        .work-header {
+            margin-bottom: 40px;
+        }
+
+        .work-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .work-description {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #ccc;
+        }
+
+        .form-input:disabled {
+            background: var(--bg);
+            cursor: not-allowed;
+        }
+
+        .form-input.large {
+            font-size: 24px;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        /* Tester Fields Grid */
+        .tester-grid {
+            display: grid;
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .tester-field {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .tester-label {
+            min-width: 120px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .tester-label.main {
+            color: var(--accent);
+        }
+
+        .tester-input {
+            flex: 1;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--white);
+            transition: border-color 0.2s;
+        }
+
+        .tester-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .tester-input.main {
+            border-color: var(--accent);
+            background: rgba(0, 102, 255, 0.02);
+        }
+
+        .tester-input:disabled {
+            background: var(--bg);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-light);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* Status Messages */
+        .status {
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 24px;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(0, 200, 83, 0.2);
+        }
+
+        .status.error {
+            background: rgba(255, 61, 0, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(255, 61, 0, 0.2);
+        }
+
+        .status.info {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+        }
+
+        /* Result Card */
+        .result-card {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 32px;
+            display: none;
+        }
+
+        .result-card.show {
+            display: block;
+        }
+
+        .result-header {
+            font-size: 13px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .result-main {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-main-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .result-main-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .result-variants {
+            display: flex;
+            gap: 24px;
+        }
+
+        .result-variant {
+            text-align: center;
+        }
+
+        .result-variant-label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .result-variant-value {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .result-empty {
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .home-screen {
+                flex-direction: column;
+            }
+
+            .home-half:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .home-half {
+                padding: 60px 40px;
+            }
+
+            .result-variants {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .result-variant {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-light);
+            background: var(--white);
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Home Screen -->
+    <div class="screen home-screen active" id="homeScreen">
+        <div class="home-half" onclick="showScreen('adminScreen')">
+            <div class="home-content">
+                <div class="home-icon">⚙️</div>
+                <h2 class="home-title">Fertigungsteuerer</h2>
+                <p class="home-subtitle">Tester-Zuweisung eingeben & bearbeiten</p>
+            </div>
+        </div>
+        <div class="home-half" onclick="showScreen('viewScreen')">
+            <div class="home-content">
+                <div class="home-icon">👁️</div>
+                <h2 class="home-title">Mitarbeiter</h2>
+                <p class="home-subtitle">Tester-Zuweisung anzeigen</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Screen (Fertigungsteuerer) -->
+    <div class="screen work-screen" id="adminScreen">
+        <div class="work-container">
+            <button class="back-button" onclick="goHome()">
+                ← Zurück
+            </button>
+
+            <div class="work-header">
+                <h1 class="work-title">Tester Zuweisung</h1>
+                <p class="work-description">Auftragsnummer scannen oder eingeben, dann Tester zuweisen.</p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Auftragsnummer</label>
+                <input type="text" 
+                       class="form-input large" 
+                       id="adminOrderInput" 
+                       placeholder="Scannen oder eingeben..."
+                       autocomplete="off"
+                       onkeypress="if(event.key==='Enter')loadOrder('admin')">
+            </div>
+
+            <button class="btn btn-secondary" onclick="loadOrder('admin')" id="adminLoadBtn">
+                Auftrag laden
+            </button>
+
+            <div class="tester-grid" id="adminTesterFields" style="display: none;">
+                <div class="tester-field">
+                    <span class="tester-label main">Haupt Tester</span>
+                    <input type="text" class="tester-input main" id="adminMainTester" placeholder="z.B. T01">
+                </div>
+                <div class="tester-field">
+                    <span class="tester-label">Variante 1</span>
+                    <input type="text" class="tester-input" id="adminVariant1" placeholder="Optional">
+                </div>
+                <div class="tester-field">
+                    <span class="tester-label">Variante 2</span>
+                    <input type="text" class="tester-input" id="adminVariant2" placeholder="Optional">
+                </div>
+                <div class="tester-field">
+                    <span class="tester-label">Variante 3</span>
+                    <input type="text" class="tester-input" id="adminVariant3" placeholder="Optional">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="saveOrder()" id="adminSaveBtn">
+                        💾 Speichern
+                    </button>
+                </div>
+            </div>
+
+            <div class="status" id="adminStatus"></div>
+        </div>
+    </div>
+
+    <!-- View Screen (Mitarbeiter) -->
+    <div class="screen work-screen" id="viewScreen">
+        <div class="work-container">
+            <button class="back-button" onclick="goHome()">
+                ← Zurück
+            </button>
+
+            <div class="work-header">
+                <h1 class="work-title">Tester Anzeige</h1>
+                <p class="work-description">Auftragsnummer scannen, um die optimale Tester-Zuweisung zu sehen.</p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Auftragsnummer</label>
+                <input type="text" 
+                       class="form-input large" 
+                       id="viewOrderInput" 
+                       placeholder="Scannen oder eingeben..."
+                       autocomplete="off"
+                       onkeypress="if(event.key==='Enter')loadOrder('view')">
+            </div>
+
+            <button class="btn btn-secondary" onclick="loadOrder('view')" id="viewLoadBtn">
+                Auftrag suchen
+            </button>
+
+            <div class="result-card" id="viewResult">
+                <div class="result-header">Empfohlene Tester für Auftrag <span id="viewOrderNumber"></span></div>
+                <div class="result-main">
+                    <span class="result-main-label">Haupt Tester:</span>
+                    <span class="result-main-value" id="viewMainTester">—</span>
+                </div>
+                <div class="result-variants">
+                    <div class="result-variant">
+                        <div class="result-variant-label">Variante 1</div>
+                        <div class="result-variant-value" id="viewVariant1">—</div>
+                    </div>
+                    <div class="result-variant">
+                        <div class="result-variant-label">Variante 2</div>
+                        <div class="result-variant-value" id="viewVariant2">—</div>
+                    </div>
+                    <div class="result-variant">
+                        <div class="result-variant-label">Variante 3</div>
+                        <div class="result-variant-value" id="viewVariant3">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status" id="viewStatus"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        ICT Tester Zuweisung • Daten werden lokal im Browser gespeichert
+    </div>
+
+    <script>
+        // ============================================
+        // DATA STORAGE
+        // Using localStorage for simplicity
+        // For shared access, replace with API calls
+        // ============================================
+
+        const STORAGE_KEY = 'ict_tester_assignments';
+
+        function getData() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : {};
+        }
+
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function getOrder(orderNumber) {
+            const data = getData();
+            return data[orderNumber.toUpperCase()] || null;
+        }
+
+        function setOrder(orderNumber, assignment) {
+            const data = getData();
+            data[orderNumber.toUpperCase()] = {
+                ...assignment,
+                updatedAt: new Date().toISOString()
+            };
+            saveData(data);
+        }
+
+        // ============================================
+        // UI FUNCTIONS
+        // ============================================
+
+        let currentOrder = null;
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+
+            // Focus the input field
+            setTimeout(() => {
+                const input = document.querySelector(`#${screenId} input`);
+                if (input) input.focus();
+            }, 100);
+
+            // Reset state
+            currentOrder = null;
+            hideStatus('admin');
+            hideStatus('view');
+            document.getElementById('adminTesterFields').style.display = 'none';
+            document.getElementById('viewResult').classList.remove('show');
+        }
+
+        function goHome() {
+            showScreen('homeScreen');
+            // Clear inputs
+            document.getElementById('adminOrderInput').value = '';
+            document.getElementById('viewOrderInput').value = '';
+            clearAdminFields();
+        }
+
+        function clearAdminFields() {
+            document.getElementById('adminMainTester').value = '';
+            document.getElementById('adminVariant1').value = '';
+            document.getElementById('adminVariant2').value = '';
+            document.getElementById('adminVariant3').value = '';
+        }
+
+        function showStatus(type, message, statusType) {
+            const el = document.getElementById(`${type}Status`);
+            el.textContent = message;
+            el.className = `status show ${statusType}`;
+        }
+
+        function hideStatus(type) {
+            const el = document.getElementById(`${type}Status`);
+            el.classList.remove('show');
+        }
+
+        // ============================================
+        // ADMIN FUNCTIONS
+        // ============================================
+
+        function loadOrder(mode) {
+            const inputId = mode === 'admin' ? 'adminOrderInput' : 'viewOrderInput';
+            const orderNumber = document.getElementById(inputId).value.trim();
+
+            if (!orderNumber) {
+                showStatus(mode, 'Bitte Auftragsnummer eingeben.', 'error');
+                return;
+            }
+
+            currentOrder = orderNumber.toUpperCase();
+            const existing = getOrder(currentOrder);
+
+            if (mode === 'admin') {
+                // Show the tester fields
+                document.getElementById('adminTesterFields').style.display = 'block';
+
+                if (existing) {
+                    // Load existing data
+                    document.getElementById('adminMainTester').value = existing.mainTester || '';
+                    document.getElementById('adminVariant1').value = existing.variant1 || '';
+                    document.getElementById('adminVariant2').value = existing.variant2 || '';
+                    document.getElementById('adminVariant3').value = existing.variant3 || '';
+                    showStatus('admin', `Auftrag ${currentOrder} geladen. Daten können bearbeitet werden.`, 'info');
+                } else {
+                    // New order
+                    clearAdminFields();
+                    showStatus('admin', `Neuer Auftrag ${currentOrder}. Bitte Tester eingeben.`, 'info');
+                }
+
+                // Focus first tester field
+                document.getElementById('adminMainTester').focus();
+
+            } else {
+                // View mode
+                if (existing) {
+                    document.getElementById('viewOrderNumber').textContent = currentOrder;
+                    document.getElementById('viewMainTester').textContent = existing.mainTester || '—';
+                    document.getElementById('viewVariant1').textContent = existing.variant1 || '—';
+                    document.getElementById('viewVariant2').textContent = existing.variant2 || '—';
+                    document.getElementById('viewVariant3').textContent = existing.variant3 || '—';
+                    document.getElementById('viewResult').classList.add('show');
+                    hideStatus('view');
+                } else {
+                    document.getElementById('viewResult').classList.remove('show');
+                    showStatus('view', `Auftrag ${currentOrder} nicht gefunden. Noch keine Zuweisung vorhanden.`, 'error');
+                }
+            }
+        }
+
+        function saveOrder() {
+            if (!currentOrder) {
+                showStatus('admin', 'Kein Auftrag geladen.', 'error');
+                return;
+            }
+
+            const mainTester = document.getElementById('adminMainTester').value.trim();
+
+            if (!mainTester) {
+                showStatus('admin', 'Bitte mindestens den Haupt Tester eingeben.', 'error');
+                document.getElementById('adminMainTester').focus();
+                return;
+            }
+
+            const assignment = {
+                mainTester: mainTester,
+                variant1: document.getElementById('adminVariant1').value.trim(),
+                variant2: document.getElementById('adminVariant2').value.trim(),
+                variant3: document.getElementById('adminVariant3').value.trim()
+            };
+
+            setOrder(currentOrder, assignment);
+            showStatus('admin', `✓ Auftrag ${currentOrder} erfolgreich gespeichert!`, 'success');
+
+            // Return to home after delay
+            setTimeout(() => {
+                goHome();
+            }, 1500);
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+
+        document.addEventListener('keydown', (e) => {
+            // ESC to go home
+            if (e.key === 'Escape') {
+                goHome();
+            }
+        });
+
+        // Auto-uppercase order numbers
+        document.getElementById('adminOrderInput').addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
+        });
+        document.getElementById('viewOrderInput').addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
+        });
+    </script>
+
+</body>
+</html>
