@@ -14,13 +14,15 @@
         :root {
             --white: #ffffff;
             --bg: #fafafa;
-            --border: #e5e5e5;
+            --border: #e0e0e0;
             --text: #1a1a1a;
             --text-light: #666666;
             --accent: #0066ff;
             --accent-hover: #0052cc;
+            --accent-light: #e6f0ff;
             --success: #00c853;
             --error: #ff3d00;
+            --gold: #ff9500;
         }
 
         body {
@@ -28,7 +30,7 @@
             background: var(--white);
             color: var(--text);
             min-height: 100vh;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         /* Screens */
@@ -41,7 +43,9 @@
             display: flex;
         }
 
-        /* Home Screen */
+        /* ========================================
+           HOME SCREEN - Large Touch Friendly
+           ======================================== */
         .home-screen {
             flex-direction: row;
         }
@@ -51,9 +55,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 60px;
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: background 0.3s ease;
         }
 
         .home-half:hover {
@@ -66,61 +70,70 @@
 
         .home-content {
             text-align: center;
-            max-width: 280px;
+            max-width: 500px;
         }
 
-        .home-icon {
-            width: 80px;
-            height: 80px;
-            border: 2px solid var(--border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 32px;
-            transition: all 0.2s ease;
+        /* Button-style container instead of icon */
+        .home-button {
+            display: inline-block;
+            padding: 32px 48px;
+            border: 3px solid var(--border);
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--white);
         }
 
-        .home-half:hover .home-icon {
+        .home-half:hover .home-button {
             border-color: var(--accent);
-            transform: scale(1.05);
+            background: var(--accent-light);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 102, 255, 0.15);
         }
 
         .home-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 0;
+            color: var(--text);
+            transition: color 0.3s;
+        }
+
+        .home-half:hover .home-title {
+            color: var(--accent);
         }
 
         .home-subtitle {
-            font-size: 14px;
+            font-size: 22px;
             color: var(--text-light);
+            margin-top: 20px;
+            line-height: 1.4;
         }
 
-        /* Work Screen */
+        /* ========================================
+           WORK SCREENS
+           ======================================== */
         .work-screen {
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 50px 30px;
         }
 
         .work-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 600px;
         }
 
         .back-button {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 0;
+            padding: 12px 0;
             background: none;
             border: none;
             color: var(--text-light);
-            font-size: 14px;
+            font-size: 18px;
             cursor: pointer;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
             transition: color 0.2s;
         }
 
@@ -129,41 +142,41 @@
         }
 
         .work-header {
-            margin-bottom: 40px;
+            margin-bottom: 48px;
         }
 
         .work-title {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
         .work-description {
             color: var(--text-light);
-            font-size: 15px;
+            font-size: 18px;
         }
 
         /* Form Elements */
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .form-label {
             display: block;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
             color: var(--text-light);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
         .form-input {
             width: 100%;
-            padding: 16px;
-            font-size: 18px;
+            padding: 20px;
+            font-size: 24px;
             border: 2px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             background: var(--white);
             color: var(--text);
             transition: border-color 0.2s, box-shadow 0.2s;
@@ -176,68 +189,95 @@
         }
 
         .form-input::placeholder {
-            color: #ccc;
-        }
-
-        .form-input:disabled {
-            background: var(--bg);
-            cursor: not-allowed;
+            color: #bbb;
         }
 
         .form-input.large {
-            font-size: 24px;
+            font-size: 32px;
             text-align: center;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            padding: 24px;
         }
 
-        /* Tester Fields Grid */
+        /* Tester Input Fields */
         .tester-grid {
             display: grid;
-            gap: 16px;
-            margin-top: 32px;
-            padding-top: 32px;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 40px;
             border-top: 1px solid var(--border);
         }
 
         .tester-field {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
         }
 
         .tester-label {
-            min-width: 120px;
-            font-size: 14px;
-            font-weight: 500;
+            min-width: 140px;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .tester-label.main {
             color: var(--accent);
         }
 
-        .tester-input {
+        .tester-input-wrapper {
             flex: 1;
-            padding: 14px 16px;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
             border: 2px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
+            overflow: hidden;
             background: var(--white);
             transition: border-color 0.2s;
         }
 
-        .tester-input:focus {
-            outline: none;
+        .tester-input-wrapper:focus-within {
             border-color: var(--accent);
         }
 
-        .tester-input.main {
+        .tester-input-wrapper.main {
             border-color: var(--accent);
-            background: rgba(0, 102, 255, 0.02);
+            background: var(--accent-light);
         }
 
-        .tester-input:disabled {
+        .tester-prefix {
+            padding: 16px;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
             background: var(--bg);
+            border-right: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .tester-input-wrapper.main .tester-prefix {
+            background: rgba(0, 102, 255, 0.1);
+            border-color: rgba(0, 102, 255, 0.2);
+        }
+
+        .tester-number {
+            flex: 1;
+            padding: 16px;
+            font-size: 24px;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            text-align: center;
+            width: 100%;
+        }
+
+        .tester-number:focus {
+            outline: none;
+        }
+
+        .tester-number::placeholder {
+            color: #ccc;
+            font-weight: 400;
         }
 
         /* Buttons */
@@ -245,12 +285,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 16px 32px;
-            font-size: 16px;
+            gap: 10px;
+            padding: 20px 40px;
+            font-size: 20px;
             font-weight: 600;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
             width: 100%;
@@ -263,13 +303,15 @@
 
         .btn-primary:hover {
             background: var(--accent-hover);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.25);
         }
 
         .btn-primary:disabled {
             background: var(--border);
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .btn-secondary {
@@ -280,25 +322,21 @@
 
         .btn-secondary:hover {
             border-color: var(--text-light);
+            background: var(--white);
         }
 
         .btn-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 32px;
-        }
-
-        .btn-group .btn {
-            flex: 1;
+            margin-top: 40px;
         }
 
         /* Status Messages */
         .status {
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 18px;
+            margin-top: 28px;
             display: none;
+            text-align: center;
         }
 
         .status.show {
@@ -308,104 +346,168 @@
         .status.success {
             background: rgba(0, 200, 83, 0.1);
             color: var(--success);
-            border: 1px solid rgba(0, 200, 83, 0.2);
+            border: 2px solid rgba(0, 200, 83, 0.2);
         }
 
         .status.error {
             background: rgba(255, 61, 0, 0.1);
             color: var(--error);
-            border: 1px solid rgba(255, 61, 0, 0.2);
+            border: 2px solid rgba(255, 61, 0, 0.2);
         }
 
         .status.info {
-            background: rgba(0, 102, 255, 0.1);
+            background: var(--accent-light);
             color: var(--accent);
-            border: 1px solid rgba(0, 102, 255, 0.2);
+            border: 2px solid rgba(0, 102, 255, 0.2);
         }
 
-        /* Result Card */
+        /* ========================================
+           RESULT CARD - Enhanced Design
+           ======================================== */
         .result-card {
-            background: var(--bg);
-            border-radius: 16px;
-            padding: 24px;
-            margin-top: 32px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 40px;
             display: none;
+            border: 2px solid var(--border);
         }
 
         .result-card.show {
             display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .result-header {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-light);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+            text-align: center;
         }
 
+        /* Main Tester - Big and Prominent */
         .result-main {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
+            text-align: center;
+            padding: 40px;
+            background: var(--white);
+            border-radius: 20px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 2px solid var(--accent-light);
         }
 
         .result-main-label {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
         }
 
         .result-main-value {
-            font-size: 36px;
-            font-weight: 700;
+            font-size: 56px;
+            font-weight: 800;
             color: var(--accent);
+            letter-spacing: 2px;
         }
 
+        .result-main-badge {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 8px 20px;
+            background: var(--accent);
+            color: white;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Variants - Cards Layout */
         .result-variants {
-            display: flex;
-            gap: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
 
         .result-variant {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px 16px;
             text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .result-variant:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
         }
 
         .result-variant-label {
             font-size: 12px;
             color: var(--text-light);
-            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
         }
 
         .result-variant-value {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
         }
 
-        .result-empty {
-            color: var(--text-light);
-            font-style: italic;
+        .result-variant-value.empty {
+            color: #ccc;
+            font-weight: 400;
         }
 
-        /* Loading */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border);
-            border-top-color: var(--accent);
+        .result-variant-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--gold);
+            color: white;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+            background: var(--white);
+            border-top: 1px solid var(--border);
         }
 
         /* Responsive */
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .home-screen {
                 flex-direction: column;
             }
@@ -416,33 +518,24 @@
             }
 
             .home-half {
-                padding: 60px 40px;
+                padding: 80px 40px;
+            }
+
+            .home-title {
+                font-size: 32px;
+            }
+
+            .home-subtitle {
+                font-size: 18px;
             }
 
             .result-variants {
-                flex-direction: column;
-                gap: 12px;
+                grid-template-columns: 1fr;
             }
 
-            .result-variant {
-                display: flex;
-                justify-content: space-between;
-                text-align: left;
+            .result-main-value {
+                font-size: 42px;
             }
-        }
-
-        /* Footer */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 12px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-light);
-            background: var(--white);
-            border-top: 1px solid var(--border);
         }
     </style>
 </head>
@@ -452,16 +545,18 @@
     <div class="screen home-screen active" id="homeScreen">
         <div class="home-half" onclick="showScreen('adminScreen')">
             <div class="home-content">
-                <div class="home-icon">⚙️</div>
-                <h2 class="home-title">Fertigungsteuerer</h2>
-                <p class="home-subtitle">Tester-Zuweisung eingeben & bearbeiten</p>
+                <div class="home-button">
+                    <h2 class="home-title">Fertigungsteuerer</h2>
+                </div>
+                <p class="home-subtitle">ICT Tester nach Material zuweisen</p>
             </div>
         </div>
         <div class="home-half" onclick="showScreen('viewScreen')">
             <div class="home-content">
-                <div class="home-icon">👁️</div>
-                <h2 class="home-title">Mitarbeiter</h2>
-                <p class="home-subtitle">Tester-Zuweisung anzeigen</p>
+                <div class="home-button">
+                    <h2 class="home-title">Mitarbeiter</h2>
+                </div>
+                <p class="home-subtitle">ICT Tester-Zuweisung anzeigen</p>
             </div>
         </div>
     </div>
@@ -483,7 +578,7 @@
                 <input type="text" 
                        class="form-input large" 
                        id="adminOrderInput" 
-                       placeholder="Scannen oder eingeben..."
+                       placeholder="Scannen..."
                        autocomplete="off"
                        onkeypress="if(event.key==='Enter')loadOrder('admin')">
             </div>
@@ -495,19 +590,31 @@
             <div class="tester-grid" id="adminTesterFields" style="display: none;">
                 <div class="tester-field">
                     <span class="tester-label main">Haupt Tester</span>
-                    <input type="text" class="tester-input main" id="adminMainTester" placeholder="z.B. T01">
+                    <div class="tester-input-wrapper main">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminMainTester" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 1</span>
-                    <input type="text" class="tester-input" id="adminVariant1" placeholder="Optional">
+                    <div class="tester-input-wrapper">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminVariant1" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 2</span>
-                    <input type="text" class="tester-input" id="adminVariant2" placeholder="Optional">
+                    <div class="tester-input-wrapper">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminVariant2" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 3</span>
-                    <input type="text" class="tester-input" id="adminVariant3" placeholder="Optional">
+                    <div class="tester-input-wrapper">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminVariant3" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
 
                 <div class="btn-group">
@@ -538,7 +645,7 @@
                 <input type="text" 
                        class="form-input large" 
                        id="viewOrderInput" 
-                       placeholder="Scannen oder eingeben..."
+                       placeholder="Scannen..."
                        autocomplete="off"
                        onkeypress="if(event.key==='Enter')loadOrder('view')">
             </div>
@@ -548,21 +655,29 @@
             </button>
 
             <div class="result-card" id="viewResult">
-                <div class="result-header">Empfohlene Tester für Auftrag <span id="viewOrderNumber"></span></div>
+                <div class="result-header">Empfohlene Tester für Auftrag <strong id="viewOrderNumber"></strong></div>
+                
+                <!-- Main Tester - Big and Prominent -->
                 <div class="result-main">
-                    <span class="result-main-label">Haupt Tester:</span>
-                    <span class="result-main-value" id="viewMainTester">—</span>
+                    <div class="result-main-label">Haupt Tester</div>
+                    <div class="result-main-value" id="viewMainTester">—</div>
+                    <div class="result-main-badge">Empfohlen</div>
                 </div>
+                
+                <!-- Variants - Card Layout -->
                 <div class="result-variants">
                     <div class="result-variant">
+                        <div class="result-variant-number">1</div>
                         <div class="result-variant-label">Variante 1</div>
                         <div class="result-variant-value" id="viewVariant1">—</div>
                     </div>
                     <div class="result-variant">
+                        <div class="result-variant-number">2</div>
                         <div class="result-variant-label">Variante 2</div>
                         <div class="result-variant-value" id="viewVariant2">—</div>
                     </div>
                     <div class="result-variant">
+                        <div class="result-variant-number">3</div>
                         <div class="result-variant-label">Variante 3</div>
                         <div class="result-variant-value" id="viewVariant3">—</div>
                     </div>
@@ -580,11 +695,10 @@
     <script>
         // ============================================
         // DATA STORAGE
-        // Using localStorage for simplicity
-        // For shared access, replace with API calls
         // ============================================
 
         const STORAGE_KEY = 'ict_tester_assignments';
+        const TESTER_PREFIX = 'ICT 500-';
 
         function getData() {
             const data = localStorage.getItem(STORAGE_KEY);
@@ -607,6 +721,18 @@
                 updatedAt: new Date().toISOString()
             };
             saveData(data);
+        }
+
+        // Format tester number to full name
+        function formatTester(number) {
+            if (!number || number.trim() === '') return '';
+            return TESTER_PREFIX + number.trim();
+        }
+
+        // Extract number from full tester name
+        function extractNumber(fullName) {
+            if (!fullName) return '';
+            return fullName.replace(TESTER_PREFIX, '').trim();
         }
 
         // ============================================
@@ -680,11 +806,11 @@
                 document.getElementById('adminTesterFields').style.display = 'block';
 
                 if (existing) {
-                    // Load existing data
-                    document.getElementById('adminMainTester').value = existing.mainTester || '';
-                    document.getElementById('adminVariant1').value = existing.variant1 || '';
-                    document.getElementById('adminVariant2').value = existing.variant2 || '';
-                    document.getElementById('adminVariant3').value = existing.variant3 || '';
+                    // Load existing data - extract just the numbers
+                    document.getElementById('adminMainTester').value = extractNumber(existing.mainTester);
+                    document.getElementById('adminVariant1').value = extractNumber(existing.variant1);
+                    document.getElementById('adminVariant2').value = extractNumber(existing.variant2);
+                    document.getElementById('adminVariant3').value = extractNumber(existing.variant3);
                     showStatus('admin', `Auftrag ${currentOrder} geladen. Daten können bearbeitet werden.`, 'info');
                 } else {
                     // New order
@@ -699,10 +825,27 @@
                 // View mode
                 if (existing) {
                     document.getElementById('viewOrderNumber').textContent = currentOrder;
-                    document.getElementById('viewMainTester').textContent = existing.mainTester || '—';
-                    document.getElementById('viewVariant1').textContent = existing.variant1 || '—';
-                    document.getElementById('viewVariant2').textContent = existing.variant2 || '—';
-                    document.getElementById('viewVariant3').textContent = existing.variant3 || '—';
+                    
+                    // Display full tester names
+                    const mainVal = existing.mainTester || '—';
+                    const var1 = existing.variant1 || '';
+                    const var2 = existing.variant2 || '';
+                    const var3 = existing.variant3 || '';
+                    
+                    document.getElementById('viewMainTester').textContent = mainVal;
+                    
+                    const v1El = document.getElementById('viewVariant1');
+                    const v2El = document.getElementById('viewVariant2');
+                    const v3El = document.getElementById('viewVariant3');
+                    
+                    v1El.textContent = var1 || '—';
+                    v2El.textContent = var2 || '—';
+                    v3El.textContent = var3 || '—';
+                    
+                    v1El.className = var1 ? 'result-variant-value' : 'result-variant-value empty';
+                    v2El.className = var2 ? 'result-variant-value' : 'result-variant-value empty';
+                    v3El.className = var3 ? 'result-variant-value' : 'result-variant-value empty';
+                    
                     document.getElementById('viewResult').classList.add('show');
                     hideStatus('view');
                 } else {
@@ -718,19 +861,20 @@
                 return;
             }
 
-            const mainTester = document.getElementById('adminMainTester').value.trim();
+            const mainTesterNum = document.getElementById('adminMainTester').value.trim();
 
-            if (!mainTester) {
+            if (!mainTesterNum) {
                 showStatus('admin', 'Bitte mindestens den Haupt Tester eingeben.', 'error');
                 document.getElementById('adminMainTester').focus();
                 return;
             }
 
+            // Save with full tester names (ICT 500-X)
             const assignment = {
-                mainTester: mainTester,
-                variant1: document.getElementById('adminVariant1').value.trim(),
-                variant2: document.getElementById('adminVariant2').value.trim(),
-                variant3: document.getElementById('adminVariant3').value.trim()
+                mainTester: formatTester(mainTesterNum),
+                variant1: formatTester(document.getElementById('adminVariant1').value.trim()),
+                variant2: formatTester(document.getElementById('adminVariant2').value.trim()),
+                variant3: formatTester(document.getElementById('adminVariant3').value.trim())
             };
 
             setOrder(currentOrder, assignment);
@@ -759,6 +903,13 @@
         });
         document.getElementById('viewOrderInput').addEventListener('input', (e) => {
             e.target.value = e.target.value.toUpperCase();
+        });
+
+        // Only allow numbers in tester fields
+        document.querySelectorAll('.tester-number').forEach(input => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            });
         });
     </script>
 
