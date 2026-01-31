@@ -812,15 +812,34 @@
         let dataSha = null;
 
         function getGitHubToken() {
-            let token = localStorage.getItem('github_token');
-            return token || '';
+            // First check if already in memory
+            if (GITHUB_CONFIG.token && GITHUB_CONFIG.token.length > 20) {
+                return GITHUB_CONFIG.token;
+            }
+            // Then check localStorage
+            try {
+                let token = localStorage.getItem('github_token');
+                if (token && token.length > 20) {
+                    GITHUB_CONFIG.token = token;
+                    return token;
+                }
+            } catch (e) {
+                console.warn('localStorage not available:', e);
+            }
+            return '';
         }
 
         function setGitHubToken(token) {
-            localStorage.setItem('github_token', token);
             GITHUB_CONFIG.token = token;
+            try {
+                localStorage.setItem('github_token', token);
+                console.log('Token saved to localStorage');
+            } catch (e) {
+                console.warn('Could not save token to localStorage:', e);
+            }
         }
 
+        // Initialize token
         GITHUB_CONFIG.token = getGitHubToken();
 
         // ============================================
@@ -865,10 +884,14 @@
         }
 
         async function saveToGitHub(data) {
-            if (!GITHUB_CONFIG.token) {
-                const token = prompt('GitHub Token wird benötigt zum Speichern.\nBitte Token eingeben (wird lokal gespeichert):');
-                if (token) {
+            // Check if we have a valid token
+            let token = getGitHubToken();
+            
+            if (!token || token.length < 20) {
+                token = prompt('GitHub Token wird benötigt zum Speichern.\nBitte Token eingeben (wird lokal gespeichert):');
+                if (token && token.trim().length > 20) {
                     setGitHubToken(token.trim());
+                    GITHUB_CONFIG.token = token.trim();
                 } else {
                     throw new Error('Token required for saving');
                 }
