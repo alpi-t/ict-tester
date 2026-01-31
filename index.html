@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICT Tester Zuweisung</title>
+    <title>ICT Tester Zuweisung • Daten werden in GitHub gespeichert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,23 +13,23 @@
         }
 
         :root {
+            --red: #FF000F;
+            --red-dark: #cc0000;
+            --black: #000000;
+            --gray-dark: #262626;
+            --gray: #6e6e6e;
+            --gray-light: #e0e0e0;
+            --gray-bg: #f5f5f5;
             --white: #ffffff;
-            --bg: #fafafa;
-            --border: #e5e5e5;
-            --text: #1a1a1a;
-            --text-light: #666666;
-            --accent: #0066ff;
-            --accent-hover: #0052cc;
-            --success: #00c853;
-            --error: #ff3d00;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--white);
-            color: var(--text);
+            color: var(--black);
             min-height: 100vh;
             line-height: 1.5;
+            font-weight: 400;
         }
 
         /* Screens */
@@ -41,7 +42,9 @@
             display: flex;
         }
 
-        /* Home Screen */
+        /* ========================================
+           HOME SCREEN
+           ======================================== */
         .home-screen {
             flex-direction: row;
         }
@@ -51,63 +54,119 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 60px;
             cursor: pointer;
             transition: background 0.2s ease;
+            position: relative;
         }
 
         .home-half:hover {
-            background: var(--bg);
+            background: var(--gray-bg);
         }
 
-        .home-half:first-child {
-            border-right: 1px solid var(--border);
+        .home-half:first-child::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            bottom: 15%;
+            width: 1px;
+            background: var(--gray-light);
         }
 
         .home-content {
             text-align: center;
-            max-width: 280px;
+            max-width: 400px;
         }
 
-        .home-icon {
-            width: 80px;
-            height: 80px;
-            border: 2px solid var(--border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 32px;
+        .home-button {
+            display: inline-block;
+            padding: 28px 56px;
+            border: 1px solid var(--gray-light);
+            background: var(--white);
             transition: all 0.2s ease;
+            position: relative;
         }
 
-        .home-half:hover .home-icon {
-            border-color: var(--accent);
-            transform: scale(1.05);
+        .home-button::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--red);
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+        }
+
+        .home-half:hover .home-button {
+            border-color: var(--gray);
+        }
+
+        .home-half:hover .home-button::before {
+            transform: scaleY(1);
         }
 
         .home-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--black);
         }
 
         .home-subtitle {
-            font-size: 14px;
-            color: var(--text-light);
+            font-size: 16px;
+            color: var(--gray);
+            margin-top: 20px;
+            font-weight: 400;
+            letter-spacing: 0;
         }
 
-        /* Work Screen */
+        /* ========================================
+           HEADER BAR
+           ======================================== */
+        .header-bar {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-light);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--red);
+            letter-spacing: 0.05em;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--gray-light);
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gray-dark);
+        }
+
+        /* ========================================
+           WORK SCREENS
+           ======================================== */
         .work-screen {
             flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
         }
 
         .work-container {
+            flex: 1;
             width: 100%;
-            max-width: 480px;
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 48px 24px;
         }
 
         .back-button {
@@ -117,48 +176,36 @@
             padding: 8px 0;
             background: none;
             border: none;
-            color: var(--text-light);
+            color: var(--gray);
             font-size: 14px;
+            font-weight: 400;
             cursor: pointer;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
             transition: color 0.2s;
+            font-family: inherit;
         }
 
         .back-button:hover {
-            color: var(--text);
+            color: var(--black);
         }
 
         .work-header {
             margin-bottom: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-light);
         }
 
         .work-title {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
             margin-bottom: 8px;
         }
 
         .work-description {
-            color: var(--text-light);
+            color: var(--gray);
             font-size: 15px;
-        }
-
-        .history-btn {
-            padding: 8px 16px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .history-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            font-weight: 400;
         }
 
         /* Form Elements */
@@ -168,94 +215,125 @@
 
         .form-label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
-            color: var(--text-light);
+            color: var(--gray);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.08em;
             margin-bottom: 8px;
         }
 
         .form-input {
             width: 100%;
-            padding: 16px;
-            font-size: 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 20px;
+            font-weight: 400;
+            border: 1px solid var(--gray-light);
             background: var(--white);
-            color: var(--text);
-            transition: border-color 0.2s, box-shadow 0.2s;
+            color: var(--black);
+            font-family: inherit;
+            transition: border-color 0.2s;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+            border-color: var(--black);
         }
 
         .form-input::placeholder {
-            color: #ccc;
-        }
-
-        .form-input:disabled {
-            background: var(--bg);
-            cursor: not-allowed;
+            color: var(--gray-light);
         }
 
         .form-input.large {
-            font-size: 24px;
+            font-size: 28px;
             text-align: center;
-            font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 0.05em;
+            padding: 20px;
         }
 
-        /* Tester Fields Grid */
+        /* Tester Input Fields */
         .tester-grid {
-            display: grid;
-            gap: 16px;
-            margin-top: 32px;
+            margin-top: 40px;
             padding-top: 32px;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid var(--gray-light);
         }
 
         .tester-field {
             display: flex;
             align-items: center;
-            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .tester-field:last-of-type {
+            border-bottom: none;
         }
 
         .tester-label {
             min-width: 120px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 400;
+            color: var(--gray-dark);
         }
 
         .tester-label.main {
-            color: var(--accent);
+            font-weight: 500;
+            color: var(--black);
+            position: relative;
+            padding-left: 12px;
         }
 
-        .tester-input {
+        .tester-label.main::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: var(--red);
+        }
+
+        .tester-input-wrapper {
             flex: 1;
-            padding: 14px 16px;
-            font-size: 16px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--gray-light);
             background: var(--white);
             transition: border-color 0.2s;
         }
 
-        .tester-input:focus {
+        .tester-input-wrapper:focus-within {
+            border-color: var(--black);
+        }
+
+        .tester-prefix {
+            padding: 12px 16px;
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gray);
+            background: var(--gray-bg);
+            border-right: 1px solid var(--gray-light);
+        }
+
+        .tester-number {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 18px;
+            font-weight: 500;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .tester-number:focus {
             outline: none;
-            border-color: var(--accent);
         }
 
-        .tester-input.main {
-            border-color: var(--accent);
-            background: rgba(0, 102, 255, 0.02);
-        }
-
-        .tester-input:disabled {
-            background: var(--bg);
+        .tester-number::placeholder {
+            color: var(--gray-light);
+            font-weight: 400;
         }
 
         /* Buttons */
@@ -265,58 +343,46 @@
             justify-content: center;
             gap: 8px;
             padding: 16px 32px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 500;
             border: none;
-            border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
             width: 100%;
+            font-family: inherit;
+            letter-spacing: 0.02em;
         }
 
         .btn-primary {
-            background: var(--accent);
+            background: var(--red);
             color: var(--white);
         }
 
         .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary:disabled {
-            background: var(--border);
-            cursor: not-allowed;
-            transform: none;
+            background: var(--red-dark);
         }
 
         .btn-secondary {
-            background: var(--bg);
-            color: var(--text);
-            border: 2px solid var(--border);
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid var(--gray-light);
         }
 
         .btn-secondary:hover {
-            border-color: var(--text-light);
+            border-color: var(--black);
         }
 
         .btn-group {
-            display: flex;
-            gap: 12px;
             margin-top: 32px;
-        }
-
-        .btn-group .btn {
-            flex: 1;
         }
 
         /* Status Messages */
         .status {
-            padding: 16px;
-            border-radius: 10px;
+            padding: 16px 20px;
             font-size: 14px;
             margin-top: 24px;
             display: none;
+            border-left: 3px solid;
         }
 
         .status.show {
@@ -324,149 +390,222 @@
         }
 
         .status.success {
-            background: rgba(0, 200, 83, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(0, 200, 83, 0.2);
+            background: #f0fff4;
+            color: #166534;
+            border-color: #22c55e;
         }
 
         .status.error {
-            background: rgba(255, 61, 0, 0.1);
-            color: var(--error);
-            border: 1px solid rgba(255, 61, 0, 0.2);
+            background: #fef2f2;
+            color: #991b1b;
+            border-color: var(--red);
         }
 
         .status.info {
-            background: rgba(0, 102, 255, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(0, 102, 255, 0.2);
+            background: var(--gray-bg);
+            color: var(--gray-dark);
+            border-color: var(--gray);
         }
 
-        /* Result Card */
+        /* ========================================
+           RESULT CARD
+           ======================================== */
         .result-card {
-            background: var(--bg);
-            border-radius: 16px;
-            padding: 24px;
-            margin-top: 32px;
+            margin-top: 40px;
             display: none;
+            border: 1px solid var(--gray-light);
         }
 
         .result-card.show {
             display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .result-header {
-            font-size: 13px;
-            color: var(--text-light);
+            font-size: 12px;
+            color: var(--gray);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
+            letter-spacing: 0.08em;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--gray-light);
+            background: var(--gray-bg);
         }
 
+        /* Main Tester */
         .result-main {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
+            padding: 40px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-light);
+            position: relative;
+        }
+
+        .result-main::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--red);
         }
 
         .result-main-label {
-            font-size: 14px;
-            color: var(--text-light);
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
         }
 
         .result-main-value {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--accent);
+            font-size: 48px;
+            font-weight: 500;
+            color: var(--black);
+            letter-spacing: 0.02em;
         }
 
+        /* Variants */
         .result-variants {
-            display: flex;
-            gap: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
         }
 
         .result-variant {
+            padding: 24px 16px;
             text-align: center;
+            border-right: 1px solid var(--gray-light);
+        }
+
+        .result-variant:last-child {
+            border-right: none;
         }
 
         .result-variant-label {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-bottom: 4px;
+            font-size: 11px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
         }
 
         .result-variant-value {
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 500;
+            color: var(--gray-dark);
         }
 
-        .result-empty {
-            color: var(--text-light);
-            font-style: italic;
+        .result-variant-value.empty {
+            color: var(--gray-light);
+            font-weight: 400;
         }
 
-        /* History Screen */
-        .history-screen {
-            flex-direction: column;
-            padding: 40px 20px;
+        /* Footer */
+        .footer {
+            padding: 16px 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray);
+            background: var(--gray-bg);
+            border-top: 1px solid var(--gray-light);
         }
 
-        .history-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .home-screen {
+                flex-direction: column;
+            }
 
+            .home-half:first-child::after {
+                right: 15%;
+                left: 15%;
+                top: auto;
+                bottom: 0;
+                width: auto;
+                height: 1px;
+            }
+
+            .home-half {
+                padding: 80px 40px;
+            }
+
+            .result-variants {
+                grid-template-columns: 1fr;
+            }
+
+            .result-variant {
+                border-right: none;
+                border-bottom: 1px solid var(--gray-light);
+            }
+
+            .result-variant:last-child {
+                border-bottom: none;
+            }
+
+            .result-main-value {
+                font-size: 36px;
+            }
+        }
+    
+        /* ========================================
+           HISTORY SCREEN
+           ======================================== */
         .history-actions {
             display: flex;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .history-table {
             width: 100%;
             border-collapse: collapse;
             background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--gray-light);
         }
 
         .history-table th {
-            background: var(--bg);
+            background: var(--gray-bg);
             padding: 16px;
             text-align: left;
             font-size: 13px;
-            font-weight: 600;
-            color: var(--text-light);
+            font-weight: 500;
+            color: var(--gray-dark);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--gray-light);
         }
 
         .history-table td {
             padding: 16px;
-            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 15px;
         }
 
-        .history-table tr:hover {
-            background: var(--bg);
+        .history-table tbody tr:hover {
+            background: var(--gray-bg);
         }
 
         .history-empty {
             text-align: center;
-            padding: 60px 20px;
-            color: var(--text-light);
+            padding: 80px 20px;
+            color: var(--gray);
         }
 
-        /* Loading */
+        .history-empty p {
+            font-size: 16px;
+            margin-top: 16px;
+        }
+
         .loading {
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 2px solid var(--border);
-            border-top-color: var(--accent);
+            border: 2px solid var(--gray-light);
+            border-top-color: var(--red);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -475,55 +614,23 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive */
-        @media (max-width: 640px) {
-            .home-screen {
-                flex-direction: column;
-            }
-
-            .home-half:first-child {
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .home-half {
-                padding: 60px 40px;
-            }
-
-            .result-variants {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .result-variant {
-                display: flex;
-                justify-content: space-between;
-                text-align: left;
-            }
-
-            .history-table {
-                font-size: 14px;
-            }
-
-            .history-table th,
-            .history-table td {
-                padding: 12px 8px;
-            }
-        }
-
-        /* Footer */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 12px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-light);
+        .history-btn-small {
+            padding: 8px 20px;
             background: var(--white);
-            border-top: 1px solid var(--border);
+            border: 1px solid var(--gray-light);
+            color: var(--gray-dark);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 400;
+            font-family: inherit;
         }
+
+        .history-btn-small:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
     </style>
 </head>
 <body>
@@ -532,35 +639,37 @@
     <div class="screen home-screen active" id="homeScreen">
         <div class="home-half" onclick="showScreen('adminScreen')">
             <div class="home-content">
-                <div class="home-icon">⚙️</div>
-                <h2 class="home-title">Fertigungsteuerer</h2>
-                <p class="home-subtitle">Tester-Zuweisung eingeben & bearbeiten</p>
+                <div class="home-button">
+                    <h2 class="home-title">Fertigungsteuerer</h2>
+                </div>
+                <p class="home-subtitle">ICT Tester nach Material zuweisen</p>
             </div>
         </div>
         <div class="home-half" onclick="showScreen('viewScreen')">
             <div class="home-content">
-                <div class="home-icon">👁️</div>
-                <h2 class="home-title">Mitarbeiter</h2>
-                <p class="home-subtitle">Tester-Zuweisung anzeigen</p>
+                <div class="home-button">
+                    <h2 class="home-title">Mitarbeiter</h2>
+                </div>
+                <p class="home-subtitle">ICT Tester-Zuweisung anzeigen</p>
             </div>
         </div>
     </div>
 
     <!-- Admin Screen (Fertigungsteuerer) -->
     <div class="screen work-screen" id="adminScreen">
+        <div class="header-bar">
+            <span class="header-logo">ICT</span>
+            <span class="header-divider"></span>
+            <span class="header-title">Tester Zuweisung</span>
+        </div>
         <div class="work-container">
             <button class="back-button" onclick="goHome()">
-                ← Zurück
+                ← Zurück zur Startseite
             </button>
 
             <div class="work-header">
-                <div>
-                    <h1 class="work-title">Tester Zuweisung</h1>
-                    <p class="work-description">Auftragsnummer scannen oder eingeben, dann Tester zuweisen.</p>
-                </div>
-                <button class="history-btn" onclick="showScreen('historyScreen')">
-                    📋 Historie
-                </button>
+                <h1 class="work-title">Tester Zuweisung</h1>
+                <p class="work-description">Auftragsnummer scannen oder eingeben, dann Tester zuweisen.</p>
             </div>
 
             <div class="form-group">
@@ -568,56 +677,74 @@
                 <input type="text" 
                        class="form-input large" 
                        id="adminOrderInput" 
-                       placeholder="Scannen oder eingeben..."
+                       placeholder="Scannen..."
                        autocomplete="off"
                        onkeypress="if(event.key==='Enter')loadOrder('admin')">
             </div>
 
-            <button class="btn btn-secondary" onclick="loadOrder('admin')" id="adminLoadBtn">
+            <button class="btn btn-secondary" onclick="loadOrder('admin')">
                 Auftrag laden
             </button>
 
             <div class="tester-grid" id="adminTesterFields" style="display: none;">
                 <div class="tester-field">
                     <span class="tester-label main">Haupt Tester</span>
-                    <input type="text" class="tester-input main" id="adminMainTester" placeholder="z.B. T01">
+                    <div class="tester-input-wrapper">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminMainTester" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 1</span>
-                    <input type="text" class="tester-input" id="adminVariant1" placeholder="Optional">
+                    <div class="tester-input-wrapper">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminVariant1" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 2</span>
-                    <input type="text" class="tester-input" id="adminVariant2" placeholder="Optional">
+                    <div class="tester-input-wrapper">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminVariant2" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 3</span>
-                    <input type="text" class="tester-input" id="adminVariant3" placeholder="Optional">
+                    <div class="tester-input-wrapper">
+                        <span class="tester-prefix">ICT 500-</span>
+                        <input type="text" class="tester-number" id="adminVariant3" placeholder="Nr." maxlength="2">
+                    </div>
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="saveOrder()" id="adminSaveBtn">
-                        💾 Speichern
+                    <button class="btn btn-primary" onclick="saveOrder()">
+                        Speichern
                     </button>
                 </div>
             </div>
 
             <div class="status" id="adminStatus"></div>
         </div>
+        <div class="footer">
+            ICT Tester Zuweisung
+        </div>
     </div>
 
     <!-- View Screen (Mitarbeiter) -->
     <div class="screen work-screen" id="viewScreen">
+        <div class="header-bar">
+            <span class="header-logo">ICT</span>
+            <span class="header-divider"></span>
+            <span class="header-title">Tester Anzeige</span>
+        </div>
         <div class="work-container">
             <button class="back-button" onclick="goHome()">
-                ← Zurück
+                ← Zurück zur Startseite
             </button>
 
             <div class="work-header">
-                <div>
-                    <h1 class="work-title">Tester Anzeige</h1>
-                    <p class="work-description">Auftragsnummer scannen, um die optimale Tester-Zuweisung zu sehen.</p>
-                </div>
+                <h1 class="work-title">Tester Anzeige</h1>
+                <p class="work-description">Auftragsnummer scannen, um die optimale Tester-Zuweisung zu sehen.</p>
             </div>
 
             <div class="form-group">
@@ -625,21 +752,23 @@
                 <input type="text" 
                        class="form-input large" 
                        id="viewOrderInput" 
-                       placeholder="Scannen oder eingeben..."
+                       placeholder="Scannen..."
                        autocomplete="off"
                        onkeypress="if(event.key==='Enter')loadOrder('view')">
             </div>
 
-            <button class="btn btn-secondary" onclick="loadOrder('view')" id="viewLoadBtn">
+            <button class="btn btn-secondary" onclick="loadOrder('view')">
                 Auftrag suchen
             </button>
 
             <div class="result-card" id="viewResult">
-                <div class="result-header">Empfohlene Tester für Auftrag <span id="viewOrderNumber"></span></div>
+                <div class="result-header">Empfohlene Tester für Auftrag <strong id="viewOrderNumber"></strong></div>
+                
                 <div class="result-main">
-                    <span class="result-main-label">Haupt Tester:</span>
-                    <span class="result-main-value" id="viewMainTester">—</span>
+                    <div class="result-main-label">Haupt Tester</div>
+                    <div class="result-main-value" id="viewMainTester">—</div>
                 </div>
+                
                 <div class="result-variants">
                     <div class="result-variant">
                         <div class="result-variant-label">Variante 1</div>
@@ -658,45 +787,15 @@
 
             <div class="status" id="viewStatus"></div>
         </div>
-    </div>
-
-    <!-- History Screen -->
-    <div class="screen history-screen" id="historyScreen">
-        <div class="history-container">
-            <button class="back-button" onclick="showScreen('adminScreen')">
-                ← Zurück
-            </button>
-
-            <div class="work-header">
-                <div>
-                    <h1 class="work-title">Historie</h1>
-                    <p class="work-description">Alle gespeicherten Aufträge</p>
-                </div>
-            </div>
-
-            <div class="history-actions">
-                <button class="btn btn-secondary" onclick="exportToCSV()">
-                    📊 Export CSV
-                </button>
-                <button class="btn btn-secondary" onclick="refreshHistory()">
-                    🔄 Aktualisieren
-                </button>
-            </div>
-
-            <div id="historyContent">
-                <div class="history-empty">
-                    <div class="loading"></div>
-                    <p style="margin-top: 16px;">Lade Historie...</p>
-                </div>
-            </div>
+        <div class="footer">
+            ICT Tester Zuweisung
         </div>
     </div>
 
-    <div class="footer">
-        ICT Tester Zuweisung • Daten werden in GitHub gespeichert
-    </div>
-
     <script>
+        const STORAGE_KEY = 'ict_tester_assignments';
+        const TESTER_PREFIX = 'ICT 500-';
+
         // ============================================
         // GITHUB API CONFIGURATION
         // ============================================
@@ -706,11 +805,12 @@
             repo: 'ict-tester',
             branch: 'main',
             dataPath: 'data.json',
-            token: '' // Will be loaded from localStorage or prompted
+            token: ''
         };
 
-        // Get GitHub token (only needed for admin/write operations)
-        // Regular users can view without token if repo is public
+        let dataCache = null;
+        let dataSha = null;
+
         function getGitHubToken() {
             let token = localStorage.getItem('github_token');
             return token || '';
@@ -722,10 +822,6 @@
         }
 
         GITHUB_CONFIG.token = getGitHubToken();
-
-        // Cache for the current data
-        let dataCache = null;
-        let dataSha = null;
 
         // ============================================
         // GITHUB API FUNCTIONS
@@ -739,7 +835,6 @@
                     'Accept': 'application/vnd.github.v3+json'
                 };
                 
-                // Add auth header only if token exists (repo might be public)
                 if (GITHUB_CONFIG.token) {
                     headers['Authorization'] = `token ${GITHUB_CONFIG.token}`;
                 }
@@ -747,7 +842,6 @@
                 const response = await fetch(url, { headers });
 
                 if (response.status === 404) {
-                    // File doesn't exist yet, initialize empty
                     return { data: {}, sha: null };
                 }
 
@@ -762,8 +856,7 @@
                 return { data, sha: result.sha };
             } catch (error) {
                 console.error('Error fetching GitHub data:', error);
-                // Fallback to localStorage if GitHub fails
-                const localData = localStorage.getItem('ict_tester_assignments');
+                const localData = localStorage.getItem(STORAGE_KEY);
                 return { 
                     data: localData ? JSON.parse(localData) : {},
                     sha: null 
@@ -772,7 +865,6 @@
         }
 
         async function saveToGitHub(data) {
-            // Check if token is available
             if (!GITHUB_CONFIG.token) {
                 const token = prompt('GitHub Token wird benötigt zum Speichern.\nBitte Token eingeben (wird lokal gespeichert):');
                 if (token) {
@@ -815,15 +907,13 @@
                 const result = await response.json();
                 dataSha = result.content.sha;
                 
-                // Also save to localStorage as backup
-                localStorage.setItem('ict_tester_assignments', JSON.stringify(data));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
                 
                 return true;
             } catch (error) {
                 console.error('Error saving to GitHub:', error);
                 alert(`Fehler beim Speichern zu GitHub: ${error.message}\n\nDaten wurden lokal gespeichert.`);
-                // Fallback to localStorage
-                localStorage.setItem('ict_tester_assignments', JSON.stringify(data));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
                 return false;
             }
         }
@@ -856,9 +946,15 @@
             await saveData(data);
         }
 
-        // ============================================
-        // UI FUNCTIONS
-        // ============================================
+        function formatTester(number) {
+            if (!number || number.trim() === '') return '';
+            return TESTER_PREFIX + number.trim();
+        }
+
+        function extractNumber(fullName) {
+            if (!fullName) return '';
+            return fullName.replace(TESTER_PREFIX, '').trim();
+        }
 
         let currentOrder = null;
 
@@ -866,20 +962,17 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
 
-            // Focus the input field
             setTimeout(() => {
                 const input = document.querySelector(`#${screenId} input`);
                 if (input) input.focus();
             }, 100);
 
-            // Reset state
             currentOrder = null;
             hideStatus('admin');
             hideStatus('view');
             document.getElementById('adminTesterFields').style.display = 'none';
             document.getElementById('viewResult').classList.remove('show');
 
-            // Load history if showing history screen
             if (screenId === 'historyScreen') {
                 loadHistory();
             }
@@ -887,7 +980,6 @@
 
         function goHome() {
             showScreen('homeScreen');
-            // Clear inputs
             document.getElementById('adminOrderInput').value = '';
             document.getElementById('viewOrderInput').value = '';
             clearAdminFields();
@@ -911,10 +1003,6 @@
             el.classList.remove('show');
         }
 
-        // ============================================
-        // ADMIN FUNCTIONS
-        // ============================================
-
         async function loadOrder(mode) {
             const inputId = mode === 'admin' ? 'adminOrderInput' : 'viewOrderInput';
             const orderNumber = document.getElementById(inputId).value.trim();
@@ -925,45 +1013,53 @@
             }
 
             currentOrder = orderNumber.toUpperCase();
-            
-            // Show loading
             showStatus(mode, 'Lade...', 'info');
-            
             const existing = await getOrder(currentOrder);
 
             if (mode === 'admin') {
-                // Show the tester fields
                 document.getElementById('adminTesterFields').style.display = 'block';
 
                 if (existing) {
-                    // Load existing data
-                    document.getElementById('adminMainTester').value = existing.mainTester || '';
-                    document.getElementById('adminVariant1').value = existing.variant1 || '';
-                    document.getElementById('adminVariant2').value = existing.variant2 || '';
-                    document.getElementById('adminVariant3').value = existing.variant3 || '';
-                    showStatus('admin', `Auftrag ${currentOrder} geladen. Daten können bearbeitet werden.`, 'info');
+                    document.getElementById('adminMainTester').value = extractNumber(existing.mainTester);
+                    document.getElementById('adminVariant1').value = extractNumber(existing.variant1);
+                    document.getElementById('adminVariant2').value = extractNumber(existing.variant2);
+                    document.getElementById('adminVariant3').value = extractNumber(existing.variant3);
+                    showStatus('admin', `Auftrag ${currentOrder} geladen.`, 'info');
                 } else {
-                    // New order
                     clearAdminFields();
-                    showStatus('admin', `Neuer Auftrag ${currentOrder}. Bitte Tester eingeben.`, 'info');
+                    showStatus('admin', `Neuer Auftrag ${currentOrder}`, 'info');
                 }
 
-                // Focus first tester field
                 document.getElementById('adminMainTester').focus();
 
             } else {
-                // View mode
                 if (existing) {
                     document.getElementById('viewOrderNumber').textContent = currentOrder;
-                    document.getElementById('viewMainTester').textContent = existing.mainTester || '—';
-                    document.getElementById('viewVariant1').textContent = existing.variant1 || '—';
-                    document.getElementById('viewVariant2').textContent = existing.variant2 || '—';
-                    document.getElementById('viewVariant3').textContent = existing.variant3 || '—';
+                    
+                    const mainVal = existing.mainTester || '—';
+                    const var1 = existing.variant1 || '';
+                    const var2 = existing.variant2 || '';
+                    const var3 = existing.variant3 || '';
+                    
+                    document.getElementById('viewMainTester').textContent = mainVal;
+                    
+                    const v1El = document.getElementById('viewVariant1');
+                    const v2El = document.getElementById('viewVariant2');
+                    const v3El = document.getElementById('viewVariant3');
+                    
+                    v1El.textContent = var1 || '—';
+                    v2El.textContent = var2 || '—';
+                    v3El.textContent = var3 || '—';
+                    
+                    v1El.className = var1 ? 'result-variant-value' : 'result-variant-value empty';
+                    v2El.className = var2 ? 'result-variant-value' : 'result-variant-value empty';
+                    v3El.className = var3 ? 'result-variant-value' : 'result-variant-value empty';
+                    
                     document.getElementById('viewResult').classList.add('show');
                     hideStatus('view');
                 } else {
                     document.getElementById('viewResult').classList.remove('show');
-                    showStatus('view', `Auftrag ${currentOrder} nicht gefunden. Noch keine Zuweisung vorhanden.`, 'error');
+                    showStatus('view', `Auftrag ${currentOrder} nicht gefunden.`, 'error');
                 }
             }
         }
@@ -974,32 +1070,46 @@
                 return;
             }
 
-            const mainTester = document.getElementById('adminMainTester').value.trim();
+            const mainTesterNum = document.getElementById('adminMainTester').value.trim();
 
-            if (!mainTester) {
-                showStatus('admin', 'Bitte mindestens den Haupt Tester eingeben.', 'error');
+            if (!mainTesterNum) {
+                showStatus('admin', 'Bitte Haupt Tester eingeben.', 'error');
                 document.getElementById('adminMainTester').focus();
                 return;
             }
 
             const assignment = {
-                mainTester: mainTester,
-                variant1: document.getElementById('adminVariant1').value.trim(),
-                variant2: document.getElementById('adminVariant2').value.trim(),
-                variant3: document.getElementById('adminVariant3').value.trim()
+                mainTester: formatTester(mainTesterNum),
+                variant1: formatTester(document.getElementById('adminVariant1').value.trim()),
+                variant2: formatTester(document.getElementById('adminVariant2').value.trim()),
+                variant3: formatTester(document.getElementById('adminVariant3').value.trim())
             };
 
             showStatus('admin', 'Speichere...', 'info');
-            
             await setOrder(currentOrder, assignment);
-            
-            showStatus('admin', `✓ Auftrag ${currentOrder} erfolgreich gespeichert!`, 'success');
+            showStatus('admin', `Auftrag ${currentOrder} gespeichert.`, 'success');
 
-            // Return to home after delay
             setTimeout(() => {
                 goHome();
-            }, 1500);
+            }, 1200);
         }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') goHome();
+        });
+
+        document.getElementById('adminOrderInput').addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
+        });
+        document.getElementById('viewOrderInput').addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
+        });
+
+        document.querySelectorAll('.tester-number').forEach(input => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            });
+        });
 
         // ============================================
         // HISTORY FUNCTIONS
@@ -1076,7 +1186,6 @@
                     return;
                 }
 
-                // Create CSV content
                 let csv = 'Auftrag,Haupt Tester,Variante 1,Variante 2,Variante 3,Aktualisiert\n';
                 
                 orders.forEach(([orderNum, assignment]) => {
@@ -1085,7 +1194,6 @@
                     csv += `${orderNum},${assignment.mainTester || ''},${assignment.variant1 || ''},${assignment.variant2 || ''},${assignment.variant3 || ''},${dateStr}\n`;
                 });
 
-                // Create download link
                 const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
                 const url = URL.createObjectURL(blob);
@@ -1098,28 +1206,51 @@
             });
         }
 
-        // ============================================
-        // KEYBOARD SHORTCUTS
-        // ============================================
-
-        document.addEventListener('keydown', (e) => {
-            // ESC to go home
-            if (e.key === 'Escape') {
-                goHome();
-            }
-        });
-
-        // Auto-uppercase order numbers
-        document.getElementById('adminOrderInput').addEventListener('input', (e) => {
-            e.target.value = e.target.value.toUpperCase();
-        });
-        document.getElementById('viewOrderInput').addEventListener('input', (e) => {
-            e.target.value = e.target.value.toUpperCase();
-        });
-
         // Preload data on page load
         getData();
+
     </script>
+
+
+    <!-- History Screen -->
+    <div class="screen work-screen" id="historyScreen">
+        <div class="header-bar">
+            <div class="header-logo">ABB</div>
+            <div class="header-divider"></div>
+            <div class="header-title">ICT Tester Zuweisung</div>
+        </div>
+        <div class="work-container" style="max-width: 1000px;">
+            <button class="back-button" onclick="showScreen('adminScreen')">
+                ← Zurück
+            </button>
+
+            <div class="work-header">
+                <div>
+                    <h1 class="work-title">Historie</h1>
+                    <p class="work-description">Alle gespeicherten Aufträge</p>
+                </div>
+            </div>
+
+            <div class="history-actions">
+                <button class="btn" onclick="exportToCSV()">
+                    📊 Export CSV
+                </button>
+                <button class="btn" onclick="refreshHistory()">
+                    🔄 Aktualisieren
+                </button>
+            </div>
+
+            <div id="historyContent">
+                <div class="history-empty">
+                    <div class="loading"></div>
+                    <p style="margin-top: 16px;">Lade Historie...</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            ICT Tester Zuweisung
+        </div>
+    </div>
 
 </body>
 </html>
