@@ -805,7 +805,7 @@
             repo: 'ict-tester',
             branch: 'main',
             dataPath: 'data.json',
-            token: ''
+            token: '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'  // Your GitHub token - change if expired
         };
 
         let dataCache = null;
@@ -884,18 +884,21 @@
         }
 
         async function saveToGitHub(data) {
-            // Check if we have a valid token
-            let token = getGitHubToken();
+            // Use token from config or localStorage
+            let token = GITHUB_CONFIG.token || getGitHubToken();
             
             if (!token || token.length < 20) {
-                token = prompt('GitHub Token wird benötigt zum Speichern.\nBitte Token eingeben (wird lokal gespeichert):');
+                token = prompt('GitHub Token wird benötigt zum Speichern.\nBitte Token eingeben:');
                 if (token && token.trim().length > 20) {
                     setGitHubToken(token.trim());
-                    GITHUB_CONFIG.token = token.trim();
+                    token = token.trim();
                 } else {
                     throw new Error('Token required for saving');
                 }
             }
+            
+            // Make sure we use this token for the request
+            GITHUB_CONFIG.token = token;
 
             const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}`;
             
