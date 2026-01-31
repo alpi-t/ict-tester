@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICT Tester Zuweisung</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,23 +12,23 @@
         }
 
         :root {
-            --red: #FF000F;
-            --red-dark: #cc0000;
-            --black: #000000;
-            --gray-dark: #262626;
-            --gray: #6e6e6e;
-            --gray-light: #e0e0e0;
-            --gray-bg: #f5f5f5;
             --white: #ffffff;
+            --bg: #fafafa;
+            --border: #e5e5e5;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --accent: #0066ff;
+            --accent-hover: #0052cc;
+            --success: #00c853;
+            --error: #ff3d00;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--white);
-            color: var(--black);
+            color: var(--text);
             min-height: 100vh;
             line-height: 1.5;
-            font-weight: 400;
         }
 
         /* Screens */
@@ -42,9 +41,7 @@
             display: flex;
         }
 
-        /* ========================================
-           HOME SCREEN
-           ======================================== */
+        /* Home Screen */
         .home-screen {
             flex-direction: row;
         }
@@ -54,119 +51,63 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 60px;
+            padding: 40px;
             cursor: pointer;
             transition: background 0.2s ease;
-            position: relative;
         }
 
         .home-half:hover {
-            background: var(--gray-bg);
+            background: var(--bg);
         }
 
-        .home-half:first-child::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 15%;
-            bottom: 15%;
-            width: 1px;
-            background: var(--gray-light);
+        .home-half:first-child {
+            border-right: 1px solid var(--border);
         }
 
         .home-content {
             text-align: center;
-            max-width: 400px;
+            max-width: 280px;
         }
 
-        .home-button {
-            display: inline-block;
-            padding: 28px 56px;
-            border: 1px solid var(--gray-light);
-            background: var(--white);
+        .home-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
             transition: all 0.2s ease;
-            position: relative;
         }
 
-        .home-button::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--red);
-            transform: scaleY(0);
-            transition: transform 0.2s ease;
-        }
-
-        .home-half:hover .home-button {
-            border-color: var(--gray);
-        }
-
-        .home-half:hover .home-button::before {
-            transform: scaleY(1);
+        .home-half:hover .home-icon {
+            border-color: var(--accent);
+            transform: scale(1.05);
         }
 
         .home-title {
-            font-size: 28px;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            color: var(--black);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         .home-subtitle {
-            font-size: 16px;
-            color: var(--gray);
-            margin-top: 20px;
-            font-weight: 400;
-            letter-spacing: 0;
+            font-size: 14px;
+            color: var(--text-light);
         }
 
-        /* ========================================
-           HEADER BAR
-           ======================================== */
-        .header-bar {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-light);
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-logo {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--red);
-            letter-spacing: 0.05em;
-        }
-
-        .header-divider {
-            width: 1px;
-            height: 24px;
-            background: var(--gray-light);
-        }
-
-        .header-title {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--gray-dark);
-        }
-
-        /* ========================================
-           WORK SCREENS
-           ======================================== */
+        /* Work Screen */
         .work-screen {
             flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
         }
 
         .work-container {
-            flex: 1;
             width: 100%;
-            max-width: 560px;
-            margin: 0 auto;
-            padding: 48px 24px;
+            max-width: 480px;
         }
 
         .back-button {
@@ -176,36 +117,48 @@
             padding: 8px 0;
             background: none;
             border: none;
-            color: var(--gray);
+            color: var(--text-light);
             font-size: 14px;
-            font-weight: 400;
             cursor: pointer;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
             transition: color 0.2s;
-            font-family: inherit;
         }
 
         .back-button:hover {
-            color: var(--black);
+            color: var(--text);
         }
 
         .work-header {
             margin-bottom: 40px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
         .work-title {
-            font-size: 32px;
-            font-weight: 500;
-            letter-spacing: -0.02em;
+            font-size: 28px;
+            font-weight: 600;
             margin-bottom: 8px;
         }
 
         .work-description {
-            color: var(--gray);
+            color: var(--text-light);
             font-size: 15px;
-            font-weight: 400;
+        }
+
+        .history-btn {
+            padding: 8px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .history-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         /* Form Elements */
@@ -215,125 +168,94 @@
 
         .form-label {
             display: block;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 500;
-            color: var(--gray);
+            color: var(--text-light);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.5px;
             margin-bottom: 8px;
         }
 
         .form-input {
             width: 100%;
-            padding: 16px 20px;
-            font-size: 20px;
-            font-weight: 400;
-            border: 1px solid var(--gray-light);
+            padding: 16px;
+            font-size: 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
             background: var(--white);
-            color: var(--black);
-            font-family: inherit;
-            transition: border-color 0.2s;
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--black);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
         }
 
         .form-input::placeholder {
-            color: var(--gray-light);
+            color: #ccc;
+        }
+
+        .form-input:disabled {
+            background: var(--bg);
+            cursor: not-allowed;
         }
 
         .form-input.large {
-            font-size: 28px;
+            font-size: 24px;
             text-align: center;
-            letter-spacing: 0.05em;
-            padding: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
         }
 
-        /* Tester Input Fields */
+        /* Tester Fields Grid */
         .tester-grid {
-            margin-top: 40px;
+            display: grid;
+            gap: 16px;
+            margin-top: 32px;
             padding-top: 32px;
-            border-top: 1px solid var(--gray-light);
+            border-top: 1px solid var(--border);
         }
 
         .tester-field {
             display: flex;
             align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .tester-field:last-of-type {
-            border-bottom: none;
+            gap: 16px;
         }
 
         .tester-label {
             min-width: 120px;
             font-size: 14px;
-            font-weight: 400;
-            color: var(--gray-dark);
+            font-weight: 500;
         }
 
         .tester-label.main {
-            font-weight: 500;
-            color: var(--black);
-            position: relative;
-            padding-left: 12px;
+            color: var(--accent);
         }
 
-        .tester-label.main::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 3px;
-            height: 16px;
-            background: var(--red);
-        }
-
-        .tester-input-wrapper {
+        .tester-input {
             flex: 1;
-            display: flex;
-            align-items: center;
-            border: 1px solid var(--gray-light);
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
             background: var(--white);
             transition: border-color 0.2s;
         }
 
-        .tester-input-wrapper:focus-within {
-            border-color: var(--black);
-        }
-
-        .tester-prefix {
-            padding: 12px 16px;
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--gray);
-            background: var(--gray-bg);
-            border-right: 1px solid var(--gray-light);
-        }
-
-        .tester-number {
-            flex: 1;
-            padding: 12px 16px;
-            font-size: 18px;
-            font-weight: 500;
-            border: none;
-            background: transparent;
-            text-align: center;
-            font-family: inherit;
-        }
-
-        .tester-number:focus {
+        .tester-input:focus {
             outline: none;
+            border-color: var(--accent);
         }
 
-        .tester-number::placeholder {
-            color: var(--gray-light);
-            font-weight: 400;
+        .tester-input.main {
+            border-color: var(--accent);
+            background: rgba(0, 102, 255, 0.02);
+        }
+
+        .tester-input:disabled {
+            background: var(--bg);
         }
 
         /* Buttons */
@@ -343,46 +265,58 @@
             justify-content: center;
             gap: 8px;
             padding: 16px 32px;
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 16px;
+            font-weight: 600;
             border: none;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
             width: 100%;
-            font-family: inherit;
-            letter-spacing: 0.02em;
         }
 
         .btn-primary {
-            background: var(--red);
+            background: var(--accent);
             color: var(--white);
         }
 
         .btn-primary:hover {
-            background: var(--red-dark);
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+            transform: none;
         }
 
         .btn-secondary {
-            background: var(--white);
-            color: var(--black);
-            border: 1px solid var(--gray-light);
+            background: var(--bg);
+            color: var(--text);
+            border: 2px solid var(--border);
         }
 
         .btn-secondary:hover {
-            border-color: var(--black);
+            border-color: var(--text-light);
         }
 
         .btn-group {
+            display: flex;
+            gap: 12px;
             margin-top: 32px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
         }
 
         /* Status Messages */
         .status {
-            padding: 16px 20px;
+            padding: 16px;
+            border-radius: 10px;
             font-size: 14px;
             margin-top: 24px;
             display: none;
-            border-left: 3px solid;
         }
 
         .status.show {
@@ -390,165 +324,205 @@
         }
 
         .status.success {
-            background: #f0fff4;
-            color: #166534;
-            border-color: #22c55e;
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(0, 200, 83, 0.2);
         }
 
         .status.error {
-            background: #fef2f2;
-            color: #991b1b;
-            border-color: var(--red);
+            background: rgba(255, 61, 0, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(255, 61, 0, 0.2);
         }
 
         .status.info {
-            background: var(--gray-bg);
-            color: var(--gray-dark);
-            border-color: var(--gray);
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(0, 102, 255, 0.2);
         }
 
-        /* ========================================
-           RESULT CARD
-           ======================================== */
+        /* Result Card */
         .result-card {
-            margin-top: 40px;
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 32px;
             display: none;
-            border: 1px solid var(--gray-light);
         }
 
         .result-card.show {
             display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .result-header {
-            font-size: 12px;
-            color: var(--gray);
+            font-size: 13px;
+            color: var(--text-light);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--gray-light);
-            background: var(--gray-bg);
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
         }
 
-        /* Main Tester */
         .result-main {
-            padding: 40px 24px;
-            text-align: center;
-            border-bottom: 1px solid var(--gray-light);
-            position: relative;
-        }
-
-        .result-main::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--red);
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
         }
 
         .result-main-label {
-            font-size: 12px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-light);
         }
 
         .result-main-value {
-            font-size: 48px;
-            font-weight: 500;
-            color: var(--black);
-            letter-spacing: 0.02em;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
         }
 
-        /* Variants */
         .result-variants {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            gap: 24px;
         }
 
         .result-variant {
-            padding: 24px 16px;
             text-align: center;
-            border-right: 1px solid var(--gray-light);
-        }
-
-        .result-variant:last-child {
-            border-right: none;
         }
 
         .result-variant-label {
-            font-size: 11px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 8px;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
         }
 
         .result-variant-value {
             font-size: 20px;
-            font-weight: 500;
-            color: var(--gray-dark);
+            font-weight: 600;
         }
 
-        .result-variant-value.empty {
-            color: var(--gray-light);
-            font-weight: 400;
+        .result-empty {
+            color: var(--text-light);
+            font-style: italic;
         }
 
-        /* Footer */
-        .footer {
-            padding: 16px 24px;
+        /* History Screen */
+        .history-screen {
+            flex-direction: column;
+            padding: 40px 20px;
+        }
+
+        .history-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .history-table th {
+            background: var(--bg);
+            padding: 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .history-table td {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .history-table tr:hover {
+            background: var(--bg);
+        }
+
+        .history-empty {
             text-align: center;
-            font-size: 12px;
-            color: var(--gray);
-            background: var(--gray-bg);
-            border-top: 1px solid var(--gray-light);
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             .home-screen {
                 flex-direction: column;
             }
 
-            .home-half:first-child::after {
-                right: 15%;
-                left: 15%;
-                top: auto;
-                bottom: 0;
-                width: auto;
-                height: 1px;
+            .home-half:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
             }
 
             .home-half {
-                padding: 80px 40px;
+                padding: 60px 40px;
             }
 
             .result-variants {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                gap: 12px;
             }
 
             .result-variant {
-                border-right: none;
-                border-bottom: 1px solid var(--gray-light);
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
             }
 
-            .result-variant:last-child {
-                border-bottom: none;
+            .history-table {
+                font-size: 14px;
             }
 
-            .result-main-value {
-                font-size: 36px;
+            .history-table th,
+            .history-table td {
+                padding: 12px 8px;
             }
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-light);
+            background: var(--white);
+            border-top: 1px solid var(--border);
         }
     </style>
 </head>
@@ -558,37 +532,35 @@
     <div class="screen home-screen active" id="homeScreen">
         <div class="home-half" onclick="showScreen('adminScreen')">
             <div class="home-content">
-                <div class="home-button">
-                    <h2 class="home-title">Fertigungsteuerer</h2>
-                </div>
-                <p class="home-subtitle">ICT Tester nach Material zuweisen</p>
+                <div class="home-icon">⚙️</div>
+                <h2 class="home-title">Fertigungsteuerer</h2>
+                <p class="home-subtitle">Tester-Zuweisung eingeben & bearbeiten</p>
             </div>
         </div>
         <div class="home-half" onclick="showScreen('viewScreen')">
             <div class="home-content">
-                <div class="home-button">
-                    <h2 class="home-title">Mitarbeiter</h2>
-                </div>
-                <p class="home-subtitle">ICT Tester-Zuweisung anzeigen</p>
+                <div class="home-icon">👁️</div>
+                <h2 class="home-title">Mitarbeiter</h2>
+                <p class="home-subtitle">Tester-Zuweisung anzeigen</p>
             </div>
         </div>
     </div>
 
     <!-- Admin Screen (Fertigungsteuerer) -->
     <div class="screen work-screen" id="adminScreen">
-        <div class="header-bar">
-            <span class="header-logo">ICT</span>
-            <span class="header-divider"></span>
-            <span class="header-title">Tester Zuweisung</span>
-        </div>
         <div class="work-container">
             <button class="back-button" onclick="goHome()">
-                ← Zurück zur Startseite
+                ← Zurück
             </button>
 
             <div class="work-header">
-                <h1 class="work-title">Tester Zuweisung</h1>
-                <p class="work-description">Auftragsnummer scannen oder eingeben, dann Tester zuweisen.</p>
+                <div>
+                    <h1 class="work-title">Tester Zuweisung</h1>
+                    <p class="work-description">Auftragsnummer scannen oder eingeben, dann Tester zuweisen.</p>
+                </div>
+                <button class="history-btn" onclick="showScreen('historyScreen')">
+                    📋 Historie
+                </button>
             </div>
 
             <div class="form-group">
@@ -596,74 +568,56 @@
                 <input type="text" 
                        class="form-input large" 
                        id="adminOrderInput" 
-                       placeholder="Scannen..."
+                       placeholder="Scannen oder eingeben..."
                        autocomplete="off"
                        onkeypress="if(event.key==='Enter')loadOrder('admin')">
             </div>
 
-            <button class="btn btn-secondary" onclick="loadOrder('admin')">
+            <button class="btn btn-secondary" onclick="loadOrder('admin')" id="adminLoadBtn">
                 Auftrag laden
             </button>
 
             <div class="tester-grid" id="adminTesterFields" style="display: none;">
                 <div class="tester-field">
                     <span class="tester-label main">Haupt Tester</span>
-                    <div class="tester-input-wrapper">
-                        <span class="tester-prefix">ICT 500-</span>
-                        <input type="text" class="tester-number" id="adminMainTester" placeholder="Nr." maxlength="2">
-                    </div>
+                    <input type="text" class="tester-input main" id="adminMainTester" placeholder="z.B. T01">
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 1</span>
-                    <div class="tester-input-wrapper">
-                        <span class="tester-prefix">ICT 500-</span>
-                        <input type="text" class="tester-number" id="adminVariant1" placeholder="Nr." maxlength="2">
-                    </div>
+                    <input type="text" class="tester-input" id="adminVariant1" placeholder="Optional">
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 2</span>
-                    <div class="tester-input-wrapper">
-                        <span class="tester-prefix">ICT 500-</span>
-                        <input type="text" class="tester-number" id="adminVariant2" placeholder="Nr." maxlength="2">
-                    </div>
+                    <input type="text" class="tester-input" id="adminVariant2" placeholder="Optional">
                 </div>
                 <div class="tester-field">
                     <span class="tester-label">Variante 3</span>
-                    <div class="tester-input-wrapper">
-                        <span class="tester-prefix">ICT 500-</span>
-                        <input type="text" class="tester-number" id="adminVariant3" placeholder="Nr." maxlength="2">
-                    </div>
+                    <input type="text" class="tester-input" id="adminVariant3" placeholder="Optional">
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="saveOrder()">
-                        Speichern
+                    <button class="btn btn-primary" onclick="saveOrder()" id="adminSaveBtn">
+                        💾 Speichern
                     </button>
                 </div>
             </div>
 
             <div class="status" id="adminStatus"></div>
         </div>
-        <div class="footer">
-            ICT Tester Zuweisung
-        </div>
     </div>
 
     <!-- View Screen (Mitarbeiter) -->
     <div class="screen work-screen" id="viewScreen">
-        <div class="header-bar">
-            <span class="header-logo">ICT</span>
-            <span class="header-divider"></span>
-            <span class="header-title">Tester Anzeige</span>
-        </div>
         <div class="work-container">
             <button class="back-button" onclick="goHome()">
-                ← Zurück zur Startseite
+                ← Zurück
             </button>
 
             <div class="work-header">
-                <h1 class="work-title">Tester Anzeige</h1>
-                <p class="work-description">Auftragsnummer scannen, um die optimale Tester-Zuweisung zu sehen.</p>
+                <div>
+                    <h1 class="work-title">Tester Anzeige</h1>
+                    <p class="work-description">Auftragsnummer scannen, um die optimale Tester-Zuweisung zu sehen.</p>
+                </div>
             </div>
 
             <div class="form-group">
@@ -671,23 +625,21 @@
                 <input type="text" 
                        class="form-input large" 
                        id="viewOrderInput" 
-                       placeholder="Scannen..."
+                       placeholder="Scannen oder eingeben..."
                        autocomplete="off"
                        onkeypress="if(event.key==='Enter')loadOrder('view')">
             </div>
 
-            <button class="btn btn-secondary" onclick="loadOrder('view')">
+            <button class="btn btn-secondary" onclick="loadOrder('view')" id="viewLoadBtn">
                 Auftrag suchen
             </button>
 
             <div class="result-card" id="viewResult">
-                <div class="result-header">Empfohlene Tester für Auftrag <strong id="viewOrderNumber"></strong></div>
-                
+                <div class="result-header">Empfohlene Tester für Auftrag <span id="viewOrderNumber"></span></div>
                 <div class="result-main">
-                    <div class="result-main-label">Haupt Tester</div>
-                    <div class="result-main-value" id="viewMainTester">—</div>
+                    <span class="result-main-label">Haupt Tester:</span>
+                    <span class="result-main-value" id="viewMainTester">—</span>
                 </div>
-                
                 <div class="result-variants">
                     <div class="result-variant">
                         <div class="result-variant-label">Variante 1</div>
@@ -706,47 +658,207 @@
 
             <div class="status" id="viewStatus"></div>
         </div>
-        <div class="footer">
-            ICT Tester Zuweisung
+    </div>
+
+    <!-- History Screen -->
+    <div class="screen history-screen" id="historyScreen">
+        <div class="history-container">
+            <button class="back-button" onclick="showScreen('adminScreen')">
+                ← Zurück
+            </button>
+
+            <div class="work-header">
+                <div>
+                    <h1 class="work-title">Historie</h1>
+                    <p class="work-description">Alle gespeicherten Aufträge</p>
+                </div>
+            </div>
+
+            <div class="history-actions">
+                <button class="btn btn-secondary" onclick="exportToCSV()">
+                    📊 Export CSV
+                </button>
+                <button class="btn btn-secondary" onclick="refreshHistory()">
+                    🔄 Aktualisieren
+                </button>
+            </div>
+
+            <div id="historyContent">
+                <div class="history-empty">
+                    <div class="loading"></div>
+                    <p style="margin-top: 16px;">Lade Historie...</p>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div class="footer">
+        ICT Tester Zuweisung • Daten werden in GitHub gespeichert
+    </div>
+
     <script>
-        const STORAGE_KEY = 'ict_tester_assignments';
-        const TESTER_PREFIX = 'ICT 500-';
+        // ============================================
+        // GITHUB API CONFIGURATION
+        // ============================================
 
-        function getData() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : {};
+        const GITHUB_CONFIG = {
+            owner: 'alpi-t',
+            repo: 'ict-tester',
+            branch: 'main',
+            dataPath: 'data.json',
+            token: '' // Will be loaded from localStorage or prompted
+        };
+
+        // Get GitHub token (only needed for admin/write operations)
+        // Regular users can view without token if repo is public
+        function getGitHubToken() {
+            let token = localStorage.getItem('github_token');
+            return token || '';
         }
 
-        function saveData(data) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        function setGitHubToken(token) {
+            localStorage.setItem('github_token', token);
+            GITHUB_CONFIG.token = token;
         }
 
-        function getOrder(orderNumber) {
-            const data = getData();
+        GITHUB_CONFIG.token = getGitHubToken();
+
+        // Cache for the current data
+        let dataCache = null;
+        let dataSha = null;
+
+        // ============================================
+        // GITHUB API FUNCTIONS
+        // ============================================
+
+        async function fetchGitHubData() {
+            const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}?ref=${GITHUB_CONFIG.branch}`;
+            
+            try {
+                const headers = {
+                    'Accept': 'application/vnd.github.v3+json'
+                };
+                
+                // Add auth header only if token exists (repo might be public)
+                if (GITHUB_CONFIG.token) {
+                    headers['Authorization'] = `token ${GITHUB_CONFIG.token}`;
+                }
+
+                const response = await fetch(url, { headers });
+
+                if (response.status === 404) {
+                    // File doesn't exist yet, initialize empty
+                    return { data: {}, sha: null };
+                }
+
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const content = atob(result.content);
+                const data = JSON.parse(content);
+                
+                return { data, sha: result.sha };
+            } catch (error) {
+                console.error('Error fetching GitHub data:', error);
+                // Fallback to localStorage if GitHub fails
+                const localData = localStorage.getItem('ict_tester_assignments');
+                return { 
+                    data: localData ? JSON.parse(localData) : {},
+                    sha: null 
+                };
+            }
+        }
+
+        async function saveToGitHub(data) {
+            // Check if token is available
+            if (!GITHUB_CONFIG.token) {
+                const token = prompt('GitHub Token wird benötigt zum Speichern.\nBitte Token eingeben (wird lokal gespeichert):');
+                if (token) {
+                    setGitHubToken(token.trim());
+                } else {
+                    throw new Error('Token required for saving');
+                }
+            }
+
+            const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}`;
+            
+            const content = btoa(JSON.stringify(data, null, 2));
+            
+            const body = {
+                message: `Update ICT tester assignments - ${new Date().toISOString()}`,
+                content: content,
+                branch: GITHUB_CONFIG.branch
+            };
+
+            if (dataSha) {
+                body.sha = dataSha;
+            }
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`GitHub API error: ${response.status} - ${errorData.message}`);
+                }
+
+                const result = await response.json();
+                dataSha = result.content.sha;
+                
+                // Also save to localStorage as backup
+                localStorage.setItem('ict_tester_assignments', JSON.stringify(data));
+                
+                return true;
+            } catch (error) {
+                console.error('Error saving to GitHub:', error);
+                alert(`Fehler beim Speichern zu GitHub: ${error.message}\n\nDaten wurden lokal gespeichert.`);
+                // Fallback to localStorage
+                localStorage.setItem('ict_tester_assignments', JSON.stringify(data));
+                return false;
+            }
+        }
+
+        async function getData() {
+            if (!dataCache) {
+                const result = await fetchGitHubData();
+                dataCache = result.data;
+                dataSha = result.sha;
+            }
+            return dataCache;
+        }
+
+        async function saveData(data) {
+            dataCache = data;
+            await saveToGitHub(data);
+        }
+
+        async function getOrder(orderNumber) {
+            const data = await getData();
             return data[orderNumber.toUpperCase()] || null;
         }
 
-        function setOrder(orderNumber, assignment) {
-            const data = getData();
+        async function setOrder(orderNumber, assignment) {
+            const data = await getData();
             data[orderNumber.toUpperCase()] = {
                 ...assignment,
                 updatedAt: new Date().toISOString()
             };
-            saveData(data);
+            await saveData(data);
         }
 
-        function formatTester(number) {
-            if (!number || number.trim() === '') return '';
-            return TESTER_PREFIX + number.trim();
-        }
-
-        function extractNumber(fullName) {
-            if (!fullName) return '';
-            return fullName.replace(TESTER_PREFIX, '').trim();
-        }
+        // ============================================
+        // UI FUNCTIONS
+        // ============================================
 
         let currentOrder = null;
 
@@ -754,20 +866,28 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
 
+            // Focus the input field
             setTimeout(() => {
                 const input = document.querySelector(`#${screenId} input`);
                 if (input) input.focus();
             }, 100);
 
+            // Reset state
             currentOrder = null;
             hideStatus('admin');
             hideStatus('view');
             document.getElementById('adminTesterFields').style.display = 'none';
             document.getElementById('viewResult').classList.remove('show');
+
+            // Load history if showing history screen
+            if (screenId === 'historyScreen') {
+                loadHistory();
+            }
         }
 
         function goHome() {
             showScreen('homeScreen');
+            // Clear inputs
             document.getElementById('adminOrderInput').value = '';
             document.getElementById('viewOrderInput').value = '';
             clearAdminFields();
@@ -791,7 +911,11 @@
             el.classList.remove('show');
         }
 
-        function loadOrder(mode) {
+        // ============================================
+        // ADMIN FUNCTIONS
+        // ============================================
+
+        async function loadOrder(mode) {
             const inputId = mode === 'admin' ? 'adminOrderInput' : 'viewOrderInput';
             const orderNumber = document.getElementById(inputId).value.trim();
 
@@ -801,89 +925,191 @@
             }
 
             currentOrder = orderNumber.toUpperCase();
-            const existing = getOrder(currentOrder);
+            
+            // Show loading
+            showStatus(mode, 'Lade...', 'info');
+            
+            const existing = await getOrder(currentOrder);
 
             if (mode === 'admin') {
+                // Show the tester fields
                 document.getElementById('adminTesterFields').style.display = 'block';
 
                 if (existing) {
-                    document.getElementById('adminMainTester').value = extractNumber(existing.mainTester);
-                    document.getElementById('adminVariant1').value = extractNumber(existing.variant1);
-                    document.getElementById('adminVariant2').value = extractNumber(existing.variant2);
-                    document.getElementById('adminVariant3').value = extractNumber(existing.variant3);
-                    showStatus('admin', `Auftrag ${currentOrder} geladen.`, 'info');
+                    // Load existing data
+                    document.getElementById('adminMainTester').value = existing.mainTester || '';
+                    document.getElementById('adminVariant1').value = existing.variant1 || '';
+                    document.getElementById('adminVariant2').value = existing.variant2 || '';
+                    document.getElementById('adminVariant3').value = existing.variant3 || '';
+                    showStatus('admin', `Auftrag ${currentOrder} geladen. Daten können bearbeitet werden.`, 'info');
                 } else {
+                    // New order
                     clearAdminFields();
-                    showStatus('admin', `Neuer Auftrag ${currentOrder}`, 'info');
+                    showStatus('admin', `Neuer Auftrag ${currentOrder}. Bitte Tester eingeben.`, 'info');
                 }
 
+                // Focus first tester field
                 document.getElementById('adminMainTester').focus();
 
             } else {
+                // View mode
                 if (existing) {
                     document.getElementById('viewOrderNumber').textContent = currentOrder;
-                    
-                    const mainVal = existing.mainTester || '—';
-                    const var1 = existing.variant1 || '';
-                    const var2 = existing.variant2 || '';
-                    const var3 = existing.variant3 || '';
-                    
-                    document.getElementById('viewMainTester').textContent = mainVal;
-                    
-                    const v1El = document.getElementById('viewVariant1');
-                    const v2El = document.getElementById('viewVariant2');
-                    const v3El = document.getElementById('viewVariant3');
-                    
-                    v1El.textContent = var1 || '—';
-                    v2El.textContent = var2 || '—';
-                    v3El.textContent = var3 || '—';
-                    
-                    v1El.className = var1 ? 'result-variant-value' : 'result-variant-value empty';
-                    v2El.className = var2 ? 'result-variant-value' : 'result-variant-value empty';
-                    v3El.className = var3 ? 'result-variant-value' : 'result-variant-value empty';
-                    
+                    document.getElementById('viewMainTester').textContent = existing.mainTester || '—';
+                    document.getElementById('viewVariant1').textContent = existing.variant1 || '—';
+                    document.getElementById('viewVariant2').textContent = existing.variant2 || '—';
+                    document.getElementById('viewVariant3').textContent = existing.variant3 || '—';
                     document.getElementById('viewResult').classList.add('show');
                     hideStatus('view');
                 } else {
                     document.getElementById('viewResult').classList.remove('show');
-                    showStatus('view', `Auftrag ${currentOrder} nicht gefunden.`, 'error');
+                    showStatus('view', `Auftrag ${currentOrder} nicht gefunden. Noch keine Zuweisung vorhanden.`, 'error');
                 }
             }
         }
 
-        function saveOrder() {
+        async function saveOrder() {
             if (!currentOrder) {
                 showStatus('admin', 'Kein Auftrag geladen.', 'error');
                 return;
             }
 
-            const mainTesterNum = document.getElementById('adminMainTester').value.trim();
+            const mainTester = document.getElementById('adminMainTester').value.trim();
 
-            if (!mainTesterNum) {
-                showStatus('admin', 'Bitte Haupt Tester eingeben.', 'error');
+            if (!mainTester) {
+                showStatus('admin', 'Bitte mindestens den Haupt Tester eingeben.', 'error');
                 document.getElementById('adminMainTester').focus();
                 return;
             }
 
             const assignment = {
-                mainTester: formatTester(mainTesterNum),
-                variant1: formatTester(document.getElementById('adminVariant1').value.trim()),
-                variant2: formatTester(document.getElementById('adminVariant2').value.trim()),
-                variant3: formatTester(document.getElementById('adminVariant3').value.trim())
+                mainTester: mainTester,
+                variant1: document.getElementById('adminVariant1').value.trim(),
+                variant2: document.getElementById('adminVariant2').value.trim(),
+                variant3: document.getElementById('adminVariant3').value.trim()
             };
 
-            setOrder(currentOrder, assignment);
-            showStatus('admin', `Auftrag ${currentOrder} gespeichert.`, 'success');
+            showStatus('admin', 'Speichere...', 'info');
+            
+            await setOrder(currentOrder, assignment);
+            
+            showStatus('admin', `✓ Auftrag ${currentOrder} erfolgreich gespeichert!`, 'success');
 
+            // Return to home after delay
             setTimeout(() => {
                 goHome();
-            }, 1200);
+            }, 1500);
         }
 
+        // ============================================
+        // HISTORY FUNCTIONS
+        // ============================================
+
+        async function loadHistory() {
+            const container = document.getElementById('historyContent');
+            container.innerHTML = '<div class="history-empty"><div class="loading"></div><p style="margin-top: 16px;">Lade Historie...</p></div>';
+
+            const data = await getData();
+            const orders = Object.entries(data).sort((a, b) => {
+                const dateA = new Date(a[1].updatedAt || 0);
+                const dateB = new Date(b[1].updatedAt || 0);
+                return dateB - dateA;
+            });
+
+            if (orders.length === 0) {
+                container.innerHTML = '<div class="history-empty"><p>📋</p><p style="margin-top: 16px;">Noch keine Aufträge gespeichert.</p></div>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.className = 'history-table';
+            
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Auftrag</th>
+                        <th>Haupt Tester</th>
+                        <th>Var. 1</th>
+                        <th>Var. 2</th>
+                        <th>Var. 3</th>
+                        <th>Aktualisiert</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${orders.map(([orderNum, assignment]) => {
+                        const date = new Date(assignment.updatedAt);
+                        const dateStr = date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+                        return `
+                            <tr>
+                                <td><strong>${orderNum}</strong></td>
+                                <td>${assignment.mainTester || '—'}</td>
+                                <td>${assignment.variant1 || '—'}</td>
+                                <td>${assignment.variant2 || '—'}</td>
+                                <td>${assignment.variant3 || '—'}</td>
+                                <td>${dateStr}</td>
+                            </tr>
+                        `;
+                    }).join('')}
+                </tbody>
+            `;
+
+            container.innerHTML = '';
+            container.appendChild(table);
+        }
+
+        async function refreshHistory() {
+            dataCache = null;
+            dataSha = null;
+            await loadHistory();
+        }
+
+        function exportToCSV() {
+            getData().then(data => {
+                const orders = Object.entries(data).sort((a, b) => {
+                    const dateA = new Date(a[1].updatedAt || 0);
+                    const dateB = new Date(b[1].updatedAt || 0);
+                    return dateB - dateA;
+                });
+
+                if (orders.length === 0) {
+                    alert('Keine Daten zum Exportieren.');
+                    return;
+                }
+
+                // Create CSV content
+                let csv = 'Auftrag,Haupt Tester,Variante 1,Variante 2,Variante 3,Aktualisiert\n';
+                
+                orders.forEach(([orderNum, assignment]) => {
+                    const date = new Date(assignment.updatedAt);
+                    const dateStr = date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE');
+                    csv += `${orderNum},${assignment.mainTester || ''},${assignment.variant1 || ''},${assignment.variant2 || ''},${assignment.variant3 || ''},${dateStr}\n`;
+                });
+
+                // Create download link
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `ict-tester-${new Date().toISOString().split('T')[0]}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') goHome();
+            // ESC to go home
+            if (e.key === 'Escape') {
+                goHome();
+            }
         });
 
+        // Auto-uppercase order numbers
         document.getElementById('adminOrderInput').addEventListener('input', (e) => {
             e.target.value = e.target.value.toUpperCase();
         });
@@ -891,11 +1117,8 @@
             e.target.value = e.target.value.toUpperCase();
         });
 
-        document.querySelectorAll('.tester-number').forEach(input => {
-            input.addEventListener('input', (e) => {
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-            });
-        });
+        // Preload data on page load
+        getData();
     </script>
 
 </body>
