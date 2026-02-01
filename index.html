@@ -672,14 +672,9 @@
                 ← Zurück zur Startseite
             </button>
 
-            <div class="work-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <h1 class="work-title">Tester Zuweisung</h1>
-                    <p class="work-description">Auftragsnummer scannen oder eingeben, dann Tester zuweisen.</p>
-                </div>
-                <button class="history-btn-small" onclick="showScreen('historyScreen')">
-                    📋 Historie
-                </button>
+            <div class="work-header">
+                <h1 class="work-title">Tester Zuweisung</h1>
+                <p class="work-description">Auftragsnummer scannen oder eingeben, dann Tester zuweisen.</p>
             </div>
 
             <div class="form-group">
@@ -694,6 +689,10 @@
 
             <button class="btn btn-secondary" onclick="loadOrder('admin')">
                 Auftrag laden
+            </button>
+
+            <button class="btn btn-secondary" onclick="showScreen('historyScreen')" style="margin-top: 16px;">
+                📊 Verlaufsdaten
             </button>
 
             <div class="tester-grid" id="adminTesterFields" style="display: none;">
@@ -1059,6 +1058,28 @@
             container.innerHTML = tableHTML;
         }
 
+
+        function deleteAllData() {
+            if (!confirm('Alle Verlaufsdaten wirklich löschen?\n\nDiese Aktion kann nicht rückgängig gemacht werden!')) {
+                return;
+            }
+
+            // Clear localStorage
+            localStorage.removeItem(STORAGE_KEY);
+
+            // Reload history (will show empty state)
+            loadHistory();
+
+            // Show success message briefly
+            const container = document.getElementById('historyContent');
+            container.innerHTML = `
+                <div class="history-empty">
+                    <div class="history-empty-icon">✓</div>
+                    <p>Alle Daten wurden gelöscht.</p>
+                </div>
+            `;
+        }
+
         function exportToCSV() {
             const data = getData();
             const orders = Object.entries(data).sort((a, b) => {
@@ -1103,7 +1124,7 @@
         <div class="header-bar">
             <span class="header-logo">ICT</span>
             <span class="header-divider"></span>
-            <span class="header-title">Historie</span>
+            <span class="header-title">Verlaufsdaten</span>
         </div>
         <div class="work-container" style="max-width: 1200px;">
             <button class="back-button" onclick="showScreen('adminScreen')">
@@ -1111,7 +1132,7 @@
             </button>
 
             <div class="work-header">
-                <h1 class="work-title">Historie</h1>
+                <h1 class="work-title">Verlaufsdaten</h1>
                 <p class="work-description">Alle gespeicherten Aufträge</p>
             </div>
 
@@ -1121,6 +1142,9 @@
                 </button>
                 <button class="btn btn-secondary" onclick="loadHistory()">
                     🔄 Aktualisieren
+                </button>
+                <button class="btn btn-secondary" onclick="deleteAllData()" style="margin-left: auto; background: var(--red); color: var(--white); border-color: var(--red);">
+                    🗑️ Alle Daten löschen
                 </button>
             </div>
 
