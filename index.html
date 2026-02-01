@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICT Tester Zuweisung • Daten werden in GitHub gespeichert</title>
+    <title>ICT Tester Zuweisung</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -550,87 +550,6 @@
                 font-size: 36px;
             }
         }
-    
-        /* ========================================
-           HISTORY SCREEN
-           ======================================== */
-        .history-actions {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--white);
-            border: 1px solid var(--gray-light);
-        }
-
-        .history-table th {
-            background: var(--gray-bg);
-            padding: 16px;
-            text-align: left;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--gray-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .history-table td {
-            padding: 16px;
-            border-bottom: 1px solid var(--gray-light);
-            font-size: 15px;
-        }
-
-        .history-table tbody tr:hover {
-            background: var(--gray-bg);
-        }
-
-        .history-empty {
-            text-align: center;
-            padding: 80px 20px;
-            color: var(--gray);
-        }
-
-        .history-empty p {
-            font-size: 16px;
-            margin-top: 16px;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--gray-light);
-            border-top-color: var(--red);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .history-btn-small {
-            padding: 8px 20px;
-            background: var(--white);
-            border: 1px solid var(--gray-light);
-            color: var(--gray-dark);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 400;
-            font-family: inherit;
-        }
-
-        .history-btn-small:hover {
-            border-color: var(--red);
-            color: var(--red);
-        }
-
     </style>
 </head>
 <body>
@@ -796,180 +715,27 @@
         const STORAGE_KEY = 'ict_tester_assignments';
         const TESTER_PREFIX = 'ICT 500-';
 
-        // ============================================
-        // GITHUB API CONFIGURATION
-        // ============================================
-
-        const GITHUB_CONFIG = {
-            owner: 'alpi-t',
-            repo: 'ict-tester',
-            branch: 'main',
-            dataPath: 'data.json',
-            token: ''  // Your GitHub token - change if expired
-        };
-
-        let dataCache = null;
-        let dataSha = null;
-
-        function getGitHubToken() {
-            // First check if already in memory
-            if (GITHUB_CONFIG.token && GITHUB_CONFIG.token.length > 20) {
-                return GITHUB_CONFIG.token;
-            }
-            // Then check localStorage
-            try {
-                let token = localStorage.getItem('github_token');
-                if (token && token.length > 20) {
-                    GITHUB_CONFIG.token = token;
-                    return token;
-                }
-            } catch (e) {
-                console.warn('localStorage not available:', e);
-            }
-            return '';
+        function getData() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : {};
         }
 
-        function setGitHubToken(token) {
-            GITHUB_CONFIG.token = token;
-            try {
-                localStorage.setItem('github_token', token);
-                console.log('Token saved to localStorage');
-            } catch (e) {
-                console.warn('Could not save token to localStorage:', e);
-            }
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         }
 
-        // Initialize token
-        GITHUB_CONFIG.token = getGitHubToken();
-
-        // ============================================
-        // GITHUB API FUNCTIONS
-        // ============================================
-
-        async function fetchGitHubData() {
-            const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}?ref=${GITHUB_CONFIG.branch}`;
-            
-            try {
-                const headers = {
-                    'Accept': 'application/vnd.github.v3+json'
-                };
-                
-                if (GITHUB_CONFIG.token) {
-                    headers['Authorization'] = `token ${GITHUB_CONFIG.token}`;
-                }
-
-                const response = await fetch(url, { headers });
-
-                if (response.status === 404) {
-                    return { data: {}, sha: null };
-                }
-
-                if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status}`);
-                }
-
-                const result = await response.json();
-                const content = atob(result.content);
-                const data = JSON.parse(content);
-                
-                return { data, sha: result.sha };
-            } catch (error) {
-                console.error('Error fetching GitHub data:', error);
-                const localData = localStorage.getItem(STORAGE_KEY);
-                return { 
-                    data: localData ? JSON.parse(localData) : {},
-                    sha: null 
-                };
-            }
-        }
-
-        async function saveToGitHub(data) {
-            // Use token from config or localStorage
-            let token = GITHUB_CONFIG.token || getGitHubToken();
-            
-            if (!token || token.length < 20) {
-                token = prompt('GitHub Token wird benötigt zum Speichern.\nBitte Token eingeben:');
-                if (token && token.trim().length > 20) {
-                    setGitHubToken(token.trim());
-                    token = token.trim();
-                } else {
-                    throw new Error('Token required for saving');
-                }
-            }
-            
-            // Make sure we use this token for the request
-            GITHUB_CONFIG.token = token;
-
-            const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}`;
-            
-            const content = btoa(JSON.stringify(data, null, 2));
-            
-            const body = {
-                message: `Update ICT tester assignments - ${new Date().toISOString()}`,
-                content: content,
-                branch: GITHUB_CONFIG.branch
-            };
-
-            if (dataSha) {
-                body.sha = dataSha;
-            }
-
-            try {
-                const response = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(body)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`GitHub API error: ${response.status} - ${errorData.message}`);
-                }
-
-                const result = await response.json();
-                dataSha = result.content.sha;
-                
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-                
-                return true;
-            } catch (error) {
-                console.error('Error saving to GitHub:', error);
-                alert(`Fehler beim Speichern zu GitHub: ${error.message}\n\nDaten wurden lokal gespeichert.`);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-                return false;
-            }
-        }
-
-        async function getData() {
-            if (!dataCache) {
-                const result = await fetchGitHubData();
-                dataCache = result.data;
-                dataSha = result.sha;
-            }
-            return dataCache;
-        }
-
-        async function saveData(data) {
-            dataCache = data;
-            await saveToGitHub(data);
-        }
-
-        async function getOrder(orderNumber) {
-            const data = await getData();
+        function getOrder(orderNumber) {
+            const data = getData();
             return data[orderNumber.toUpperCase()] || null;
         }
 
-        async function setOrder(orderNumber, assignment) {
-            const data = await getData();
+        function setOrder(orderNumber, assignment) {
+            const data = getData();
             data[orderNumber.toUpperCase()] = {
                 ...assignment,
                 updatedAt: new Date().toISOString()
             };
-            await saveData(data);
+            saveData(data);
         }
 
         function formatTester(number) {
@@ -998,10 +764,6 @@
             hideStatus('view');
             document.getElementById('adminTesterFields').style.display = 'none';
             document.getElementById('viewResult').classList.remove('show');
-
-            if (screenId === 'historyScreen') {
-                loadHistory();
-            }
         }
 
         function goHome() {
@@ -1029,7 +791,7 @@
             el.classList.remove('show');
         }
 
-        async function loadOrder(mode) {
+        function loadOrder(mode) {
             const inputId = mode === 'admin' ? 'adminOrderInput' : 'viewOrderInput';
             const orderNumber = document.getElementById(inputId).value.trim();
 
@@ -1039,8 +801,7 @@
             }
 
             currentOrder = orderNumber.toUpperCase();
-            showStatus(mode, 'Lade...', 'info');
-            const existing = await getOrder(currentOrder);
+            const existing = getOrder(currentOrder);
 
             if (mode === 'admin') {
                 document.getElementById('adminTesterFields').style.display = 'block';
@@ -1090,7 +851,7 @@
             }
         }
 
-        async function saveOrder() {
+        function saveOrder() {
             if (!currentOrder) {
                 showStatus('admin', 'Kein Auftrag geladen.', 'error');
                 return;
@@ -1111,8 +872,7 @@
                 variant3: formatTester(document.getElementById('adminVariant3').value.trim())
             };
 
-            showStatus('admin', 'Speichere...', 'info');
-            await setOrder(currentOrder, assignment);
+            setOrder(currentOrder, assignment);
             showStatus('admin', `Auftrag ${currentOrder} gespeichert.`, 'success');
 
             setTimeout(() => {
@@ -1136,147 +896,7 @@
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
             });
         });
-
-        // ============================================
-        // HISTORY FUNCTIONS
-        // ============================================
-
-        async function loadHistory() {
-            const container = document.getElementById('historyContent');
-            container.innerHTML = '<div class="history-empty"><div class="loading"></div><p style="margin-top: 16px;">Lade Historie...</p></div>';
-
-            const data = await getData();
-            const orders = Object.entries(data).sort((a, b) => {
-                const dateA = new Date(a[1].updatedAt || 0);
-                const dateB = new Date(b[1].updatedAt || 0);
-                return dateB - dateA;
-            });
-
-            if (orders.length === 0) {
-                container.innerHTML = '<div class="history-empty"><p>📋</p><p style="margin-top: 16px;">Noch keine Aufträge gespeichert.</p></div>';
-                return;
-            }
-
-            const table = document.createElement('table');
-            table.className = 'history-table';
-            
-            table.innerHTML = `
-                <thead>
-                    <tr>
-                        <th>Auftrag</th>
-                        <th>Haupt Tester</th>
-                        <th>Var. 1</th>
-                        <th>Var. 2</th>
-                        <th>Var. 3</th>
-                        <th>Aktualisiert</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${orders.map(([orderNum, assignment]) => {
-                        const date = new Date(assignment.updatedAt);
-                        const dateStr = date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-                        return `
-                            <tr>
-                                <td><strong>${orderNum}</strong></td>
-                                <td>${assignment.mainTester || '—'}</td>
-                                <td>${assignment.variant1 || '—'}</td>
-                                <td>${assignment.variant2 || '—'}</td>
-                                <td>${assignment.variant3 || '—'}</td>
-                                <td>${dateStr}</td>
-                            </tr>
-                        `;
-                    }).join('')}
-                </tbody>
-            `;
-
-            container.innerHTML = '';
-            container.appendChild(table);
-        }
-
-        async function refreshHistory() {
-            dataCache = null;
-            dataSha = null;
-            await loadHistory();
-        }
-
-        function exportToCSV() {
-            getData().then(data => {
-                const orders = Object.entries(data).sort((a, b) => {
-                    const dateA = new Date(a[1].updatedAt || 0);
-                    const dateB = new Date(b[1].updatedAt || 0);
-                    return dateB - dateA;
-                });
-
-                if (orders.length === 0) {
-                    alert('Keine Daten zum Exportieren.');
-                    return;
-                }
-
-                let csv = 'Auftrag,Haupt Tester,Variante 1,Variante 2,Variante 3,Aktualisiert\n';
-                
-                orders.forEach(([orderNum, assignment]) => {
-                    const date = new Date(assignment.updatedAt);
-                    const dateStr = date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE');
-                    csv += `${orderNum},${assignment.mainTester || ''},${assignment.variant1 || ''},${assignment.variant2 || ''},${assignment.variant3 || ''},${dateStr}\n`;
-                });
-
-                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-                const link = document.createElement('a');
-                const url = URL.createObjectURL(blob);
-                link.setAttribute('href', url);
-                link.setAttribute('download', `ict-tester-${new Date().toISOString().split('T')[0]}.csv`);
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-        }
-
-        // Preload data on page load
-        getData();
-
     </script>
-
-
-    <!-- History Screen -->
-    <div class="screen work-screen" id="historyScreen">
-        <div class="header-bar">
-            <div class="header-logo">ABB</div>
-            <div class="header-divider"></div>
-            <div class="header-title">ICT Tester Zuweisung</div>
-        </div>
-        <div class="work-container" style="max-width: 1000px;">
-            <button class="back-button" onclick="showScreen('adminScreen')">
-                ← Zurück
-            </button>
-
-            <div class="work-header">
-                <div>
-                    <h1 class="work-title">Historie</h1>
-                    <p class="work-description">Alle gespeicherten Aufträge</p>
-                </div>
-            </div>
-
-            <div class="history-actions">
-                <button class="btn" onclick="exportToCSV()">
-                    📊 Export CSV
-                </button>
-                <button class="btn" onclick="refreshHistory()">
-                    🔄 Aktualisieren
-                </button>
-            </div>
-
-            <div id="historyContent">
-                <div class="history-empty">
-                    <div class="loading"></div>
-                    <p style="margin-top: 16px;">Lade Historie...</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            ICT Tester Zuweisung
-        </div>
-    </div>
 
 </body>
 </html>
