@@ -550,6 +550,92 @@
                 font-size: 36px;
             }
         }
+
+        /* ========================================
+           HISTORY SCREEN
+           ======================================== */
+        .history-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .history-actions .btn {
+            flex: 0 0 auto;
+            width: auto;
+            padding: 12px 24px;
+        }
+
+        .history-table-wrapper {
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 2px;
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th {
+            background: var(--gray-bg);
+            padding: 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--gray-light);
+            white-space: nowrap;
+        }
+
+        .history-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 15px;
+            color: var(--black);
+        }
+
+        .history-table tbody tr:hover {
+            background: var(--gray-bg);
+        }
+
+        .history-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .history-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--gray);
+        }
+
+        .history-empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .history-btn-small {
+            padding: 10px 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            color: var(--gray-dark);
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            margin-left: auto;
+        }
+
+        .history-btn-small:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
     </style>
 </head>
 <body>
@@ -764,6 +850,11 @@
             hideStatus('view');
             document.getElementById('adminTesterFields').style.display = 'none';
             document.getElementById('viewResult').classList.remove('show');
+
+            // Load history when opening history screen
+            if (screenId === 'historyScreen') {
+                loadHistory();
+            }
         }
 
         function goHome() {
@@ -896,7 +987,149 @@
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
             });
         });
+
+        // ============================================
+        // HISTORY FUNCTIONS
+        // ============================================
+
+        function loadHistory() {
+            const container = document.getElementById('historyContent');
+            const data = getData();
+            const orders = Object.entries(data).sort((a, b) => {
+                const dateA = new Date(a[1].updatedAt || 0);
+                const dateB = new Date(b[1].updatedAt || 0);
+                return dateB - dateA; // newest first
+            });
+
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="history-empty">
+                        <div class="history-empty-icon">📋</div>
+                        <p>Noch keine Aufträge gespeichert.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const tableHTML = `
+                <div class="history-table-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Auftrag</th>
+                                <th>Haupt Tester</th>
+                                <th>Variante 1</th>
+                                <th>Variante 2</th>
+                                <th>Variante 3</th>
+                                <th>Aktualisiert</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${orders.map(([orderNum, assignment]) => {
+                                const date = assignment.updatedAt ? new Date(assignment.updatedAt) : new Date();
+                                const dateStr = date.toLocaleDateString('de-DE', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit'
+                                }) + ' ' + date.toLocaleTimeString('de-DE', {
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+                                return `
+                                    <tr>
+                                        <td><strong>${orderNum}</strong></td>
+                                        <td>${assignment.mainTester || '—'}</td>
+                                        <td>${assignment.variant1 || '—'}</td>
+                                        <td>${assignment.variant2 || '—'}</td>
+                                        <td>${assignment.variant3 || '—'}</td>
+                                        <td>${dateStr}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            container.innerHTML = tableHTML;
+        }
+
+        function exportToCSV() {
+            const data = getData();
+            const orders = Object.entries(data).sort((a, b) => {
+                const dateA = new Date(a[1].updatedAt || 0);
+                const dateB = new Date(b[1].updatedAt || 0);
+                return dateB - dateA;
+            });
+
+            if (orders.length === 0) {
+                alert('Keine Daten zum Exportieren.');
+                return;
+            }
+
+            // Create CSV content
+            let csv = 'Auftrag,Haupt Tester,Variante 1,Variante 2,Variante 3,Aktualisiert\n';
+            
+            orders.forEach(([orderNum, assignment]) => {
+                const date = assignment.updatedAt ? new Date(assignment.updatedAt) : new Date();
+                const dateStr = date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE');
+                csv += `${orderNum},${assignment.mainTester || ''},${assignment.variant1 || ''},${assignment.variant2 || ''},${assignment.variant3 || ''},${dateStr}\n`;
+            });
+
+            // Create download link
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            const filename = `ict-tester-${new Date().toISOString().split('T')[0]}.csv`;
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
     </script>
+
+
+    <!-- History Screen -->
+    <div class="screen work-screen" id="historyScreen">
+        <div class="header-bar">
+            <span class="header-logo">ICT</span>
+            <span class="header-divider"></span>
+            <span class="header-title">Historie</span>
+        </div>
+        <div class="work-container" style="max-width: 1200px;">
+            <button class="back-button" onclick="showScreen('adminScreen')">
+                ← Zurück
+            </button>
+
+            <div class="work-header">
+                <h1 class="work-title">Historie</h1>
+                <p class="work-description">Alle gespeicherten Aufträge</p>
+            </div>
+
+            <div class="history-actions">
+                <button class="btn btn-secondary" onclick="exportToCSV()">
+                    📊 Export CSV
+                </button>
+                <button class="btn btn-secondary" onclick="loadHistory()">
+                    🔄 Aktualisieren
+                </button>
+            </div>
+
+            <div id="historyContent">
+                <div class="history-empty">
+                    <div class="history-empty-icon">📋</div>
+                    <p>Lade Historie...</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            ICT Tester Zuweisung
+        </div>
+    </div>
 
 </body>
 </html>
